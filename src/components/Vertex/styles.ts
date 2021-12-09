@@ -10,8 +10,8 @@ interface IPosn {
 }
 
 export const Container = styled.div<IPosn>`
-  color: ${({theme}) => theme.text};
-  background-color:${({theme}) => theme.vertexbg};
+  color: ${( {theme}) => theme.text};
+  background-color:${( {theme}) => theme.vertexbg};
   text-align: center;
   padding: 10px;
   min-width: 100px;
@@ -20,9 +20,9 @@ export const Container = styled.div<IPosn>`
   border-radius: 15px;
 
   position: absolute;
-  top: ${({posn}) => posn.top};
-  left: ${({posn}) => posn.left};
-  transform: ${({posn}) => posn.transform};
+  top: ${( {posn} ) => posn.top};
+  left: ${( {posn} ) => posn.left};
+  transform: ${( {posn} ) => posn.transform};
 
 
   /*

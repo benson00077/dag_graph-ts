@@ -1,12 +1,12 @@
-import inputHandler from "./inputHandler";
-import { input } from "../ts/types/app_types";
-import Graph from "../dag/graphClass"
+import inputParser from "./inputParser";
+import { input } from "../../ts/types/app_types";
+import Graph from "../../dag/graphClass"
 import arrowsInfoGetter from "./arrowsInfoGetter"
 
-describe.skip("Test inputHandler", () => {
+describe.skip("Test inputParser", () => {
   describe("when untrimmed input", () => {
     it("should recognize space and comma as delimter and have trimmed output", () => {
-      let output = inputHandler({
+      let output = inputParser({
         incomming: "  a, b,   c ",
         vertex: "d",
         outgoing: "e f   g    ",

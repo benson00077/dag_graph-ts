@@ -41,6 +41,26 @@ const globalStyle = createGlobalStyle`
     font-size: 3.375rem;
     color: ${( {theme}: GlobalThemeProps ) => theme.text}
   }
-`
 
+  .graph-wrapper {
+    position: relative;
+    height: 85vh;
+    border: solid 1px black;
+    border-radius: 15px;
+
+    svg{
+      position: absolute;
+      height: 100%; // temp
+      width: 100%;
+    
+      marker#arrowhead {
+        fill: ${( {theme} ) => theme.text}
+      }
+
+      & g {
+        stroke: ${( {theme} ) => theme.text}
+      }
+    }
+  }
+`
 export default withTheme(globalStyle)

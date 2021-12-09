@@ -1,4 +1,4 @@
-import arrowsInfoGetter from "../utils/arrowsInfoGetter";
+import arrowsInfoGetter from "./utils/arrowsInfoGetter";
 import { IdagData } from "../dag/types"
 import Arrow from "./Arrow/Arrow"
 
@@ -7,7 +7,7 @@ export default function arrowRenderer(props: {
   refs: [React.MutableRefObject<any>, React.MutableRefObject<any>] 
 }) {
   const {dag, refs} = props
-  const [arrowsRefs, divsRefs] = refs
+  const [divsRefs, arrowsRefs] = refs
   const [arrowsRecord, arrowsNumber] = arrowsInfoGetter(dag)
 
   return [...Array(arrowsNumber)].map((e, i) => (

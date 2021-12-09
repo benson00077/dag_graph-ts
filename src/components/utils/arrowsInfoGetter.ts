@@ -1,4 +1,4 @@
-import { IdagData } from "../dag/types";
+import { IdagData } from "../../dag/types";
 
 type arrowsRecord = {
   [key: number]: {
@@ -13,9 +13,9 @@ export default function arrowsInfoGetter(dag: IdagData): [arrowsRecord, number] 
   let counter = 0;
   let map: arrowsRecord = {};
 
-  topSorted.reverse().map((name, i) => {
+  topSorted.reverse().forEach((name, i) => {
     let incommingNames = dag["vertices"][name]["incomingNames"];
-    incommingNames.map((incommingName, j) => {
+    incommingNames.forEach((incommingName, j) => {
       map[counter] = {
         name: name,
         incommingName: incommingName,

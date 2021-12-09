@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
+  color: ${({theme})=> theme.text}
 `
 
 export const Button = styled.button`

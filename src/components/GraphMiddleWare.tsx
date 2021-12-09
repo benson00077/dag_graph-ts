@@ -13,14 +13,14 @@ function GraphMiddleWare() {
   });
 
   return (
-    <div>
+    <>
       <DagContextProvider>
         <PositionContextProvider>
           <CreateVertex verticesInput={verticesInput} />
           <VertexInput setVerticesInput={setVerticesInput} />
         </PositionContextProvider>
       </DagContextProvider>
-    </div>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useRef, useContext } from "react";
 // import DrawVertex from "./DrawVertex";
 // import DrawArrow from "./DrawArrow";
 // import ButtonGraph from "./ButtonGraph";
@@ -7,6 +7,7 @@ import { IdagData } from "../dag/types"
 import { PositionContext } from "./contexts/PositionContext"
 import arrowRenderer from "./ArrowRenderer";
 import vertexRenderer  from './VertexRenderer'
+import arrowsInfoGetter from "./utils/arrowsInfoGetter";
 
 type DrawGraphProps = {
   dag: IdagData,
@@ -20,32 +21,30 @@ type RefsArrows = React.RefObject<SVGPathElement>[]
 export default function DrawGraph({ dag, topSorted }: DrawGraphProps) {
 
   const [positionMap, setPositionMap] = useContext(PositionContext)
+  let [arrowsMap, arrowsNumber] = arrowsInfoGetter(dag)
 
   const refsDivs = useRef<RefsDiv>([]);
   const refsArrows = useRef<RefsArrows>([]);
-  topSorted.forEach((each, i) => {
-    refsDivs.current.push(React.createRef())
-    refsArrows.current.push(React.createRef())
-  })
+  refsDivs.current = [...new Array(topSorted.length)].map(() => React.createRef());
+  refsArrows.current = [...new Array(arrowsNumber)].map(() => React.createRef());
 
   /** test block */
-  useEffect(() => {
-    setPositionMap({
-      "test": {
-        posnOrigin: [2, 5],
-        posnNew: [4, 5],
-        translate: { x: 4, y: 3 }
-      }
-    })
-    console.log(positionMap)
-  }, [])
+  // useEffect(() => {
+  //   setPositionMap({
+  //     "test": {
+  //       posnOrigin: [2, 5],
+  //       posnNew: [4, 5],
+  //       translate: { x: 4, y: 3 }
+  //     }
+  //   })
+  // }, [])
 
   return (
     <>
       <p id="instructions">
         Click and drag either div to see automatic arrow adjustments.
       </p>
-      <div className="graph-wrapper">
+      <div className="graph-wrapper" >
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
           <defs>
             <marker
@@ -61,15 +60,14 @@ export default function DrawGraph({ dag, topSorted }: DrawGraphProps) {
             </marker>
           </defs>
           {arrowRenderer({dag, refs: [refsDivs, refsArrows]})}
-          {/* <ArrowDrawer graph={graph} topSorted={topSorted}/> */}
         </svg>
-        {vertexRenderer({
-          rank: dag.rank,
-          topSorted: dag.topSorted,
-          refs: [refsDivs, refsArrows]
-        })}
+          {vertexRenderer({
+            rank: dag.rank,
+            topSorted: dag.topSorted,
+            refs: [refsDivs, refsArrows]
+          })}
       </div>
-      <div>{dag.names}</div>
+      <div>{dag.topSorted}</div>
     </>
   )
 }
