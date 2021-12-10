@@ -33,8 +33,8 @@ export default function Draggable(props: DraggableProps) {
     dragging: false,
     dragged: false,
     // Current transform x and y
-    x: args.position.x,
-    y: args.position.y,
+    x: props.defaultPosition?.x || props.position?.x || args.position.x ,
+    y: props.defaultPosition?.y || props.position?.y || args.position.y ,
     //prevPropsPosition: {...position},
   });
 
@@ -52,6 +52,7 @@ export default function Draggable(props: DraggableProps) {
       dragged: true,
     }))
   }
+
   function onDrag(e: MouseEvent, coreData: DraggableData) {
 
     if (!state.dragging) return false
@@ -75,9 +76,6 @@ export default function Draggable(props: DraggableProps) {
   function onDragStop(e: MouseEvent, coreData: DraggableData) {
     
     if (!state.dragging) return
-
-    console.log(props.onStop);
-    console.log(args.onStop);
 
     // Shourt-circuit if user's callback killed it.
     const shouldContinue = args.onStop(e, createDraggableData(state, args.scale, coreData));
@@ -111,7 +109,9 @@ export default function Draggable(props: DraggableProps) {
   // If this is controlled, we don't want to move it -- unless it's dragging.
   const controlled = Boolean(props.position !== undefined)
   const draggable = !controlled || state.dragging
-  const validPosition = args.position || args.defaultPosition;
+  let validPosition = props.position || props.defaultPosition;
+  if (validPosition === undefined) validPosition = args.position
+
   const transformOpts = {
     // props when draggable only horizontally or vertically 
     x: canDragX(args.axis) && draggable ? state.x : validPosition.x,
@@ -129,8 +129,8 @@ export default function Draggable(props: DraggableProps) {
   return (
     <DraggableCore
       onStart={onDragStart}
-      onStop={onDragStop}
       onDrag={onDrag}
+      onStop={onDragStop}
       forwardedRef={args.forwardedRef}
     >
       {React.cloneElement(React.Children.only(args.children), {

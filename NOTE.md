@@ -1,10 +1,10 @@
 
-# About this project
+# 👉 About this project
 
 - TBD 
 - Delete Vertex ? dag class
 
-# About dark/light theme w/ Styled Component
+# 👉 About dark/light theme w/ Styled Component
 
 ## Style
 
@@ -26,17 +26,51 @@
   - [`-?` in TypeScript](https://stackoverflow.com/a/52417260/16124226)
 
 
-# About Draggable
+# 👉 About Draggable
 
 ## App
-
-- activeDrags: 計算拖曳幾次
-- dletaPosition
-- controlledPosition: {x: -400, y: 200}
+```jsx
+  const [state, setState] = useState({
+    activeDrags: 0, // 計算拖曳幾次
+    deltaPosition: {x: 0, y:0},
+    controlledPosition: {x: -400, y: 200}
+  })
+```
+- OnStart
+  - activeDrags
+  - Return false: won't be dragged.
+- OnStop
 
 ## Draggable
+```jsx
+  const [ state, setState ] = useState({
+    dragging: false,
+    dragged: false,
+    // Current transform x and y, default or from props
+    x: 0, 
+    y: 0,
+  });
+```
+- onDragStart: 封裝父層 onStart
+  - shouldStart: 
+- onDrag: 封裝父層 onDrag
+  - shouldUpdate: 
+- onDragStop: 封裝父層 onStop
+  - shouldContinue: 
+  - controlled: ❓
 
 ## DraggableCore
-- ShouldUpdate
-- ShouldContinue
-- 還是沒很懂 useEffect 內 add / remove EventListener 的機制 
+```jsx
+ const [state, setState] = useState({
+    dragging: false,
+    lastX: NaN,
+    lastY: NaN,
+  });
+```
+- handleDragStart: 封裝父層 onDragStart
+  - shouldUpdate: 
+- handleDrag: 封裝父層 onDrag
+  - shouldUpdate: 
+- handleDragStop: 封裝父層 onDragStop
+  - shouldUpdate: 
+- useEffect: 實現事件監聽 ❓ 還是沒很懂 useEffect 內 add / remove EventListener 的機制 

@@ -5,7 +5,6 @@ interface IPosn {
     position: string,
     top: string,
     left: string,
-    transform: string
   }
 }
 
@@ -16,13 +15,11 @@ export const Container = styled.div<IPosn>`
   padding: 10px;
   min-width: 100px;
   height: auto;
-  left: 100px;
   border-radius: 15px;
 
   position: absolute;
   top: ${( {posn} ) => posn.top};
   left: ${( {posn} ) => posn.left};
-  transform: ${( {posn} ) => posn.transform};
 
 
   /*

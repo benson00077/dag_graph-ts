@@ -1,10 +1,10 @@
-import React from "react";
-import ReactDom, { findDOMNode, unmountComponentAtNode } from "react-dom";
-import TestUtils from "react-dom/test-utils";
-import { ShallowRenderer } from "react-dom/test-utils"; //
-import Draggable from "./Draggable";
-
 //TODO
+// import React from "react";
+// import ReactDom, { findDOMNode, unmountComponentAtNode } from "react-dom";
+// import TestUtils from "react-dom/test-utils";
+// import { ShallowRenderer } from "react-dom/test-utils"; //
+// import Draggable from "./Draggable";
+
 describe.skip("draggable", () => {
   let drag: any = null;
 

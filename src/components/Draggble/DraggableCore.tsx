@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { addEvent, addUserSelectStyles, removeEvent, removeUserSelectStyles } from "./domFns";
+import { addEvent, addUserSelectStyles, removeEvent, removeUserSelectStyles, withControlledNodeRef } from "./domFns";
 import log from "./log";
 import { getControlPosition, createCoreData } from "./positionFns";
 import { AllPropsRequired, DraggableCoreProps } from "./types";
@@ -33,7 +33,7 @@ export default function DraggableCore(props: DraggableCoreProps) {
     onMouseDown: props.onMouseDown ?? (() => {}),
     scale: props.scale ?? 1
   }
-  
+
 
   const [state, setState] = useState({
     dragging: false,
@@ -42,8 +42,8 @@ export default function DraggableCore(props: DraggableCoreProps) {
   });
 
 
-  function handleDragStart(e: MouseEvent) {
-    const thisNode = args.forwardedRef.current;
+
+  function handleDragStart(e: MouseEvent, thisNode: HTMLDivElement) {
     const ownerDocument = thisNode.ownerDocument
     const position = getControlPosition(e, thisNode);
     const { x, y } = position;
@@ -69,7 +69,6 @@ export default function DraggableCore(props: DraggableCoreProps) {
   }
 
   function handleDrag (e: MouseEvent) {
-
     // Get the current drag point from the event. This is used as the offset.
     const thisNode = args.forwardedRef.current
     const position = getControlPosition(e, thisNode)
@@ -131,29 +130,29 @@ export default function DraggableCore(props: DraggableCoreProps) {
   }
 
   //TODO: onTouchStart() , onTAouchEnd(), change eventsFor 
-
   function onMouseDown(e: MouseEvent) {
     dragEventFor = eventsFor.mouse;
-    return handleDragStart(e);
+    //return handleDragStart(e);
   }
-
   function onMouseUp(e: MouseEvent) {
     dragEventFor = eventsFor.mouse;
-    return handleDragStop(e);
+    //return handleDragStop(e);
   }
   
 
   useEffect(() => {
     const thisNode = args.forwardedRef.current;
     const ownerDocument = thisNode.ownerDocument
-    addEvent(thisNode, dragEventFor.start, handleDragStart, {passive: false});
+    
+    addEvent(thisNode, dragEventFor.start, withControlledNodeRef(thisNode, handleDragStart), {passive: false});
     if (state.dragging) {
+      // thisNode is controlled when dragging, thus no need withControlledNodeRef to wrap the handler.
       addEvent(ownerDocument, dragEventFor.move, handleDrag)
       addEvent(ownerDocument, dragEventFor.stop, handleDragStop)
     }
 
     return () => {
-      removeEvent(thisNode, dragEventFor.start, handleDragStart, {passive: false})
+      removeEvent(thisNode, dragEventFor.start, withControlledNodeRef(thisNode, handleDragStart), {passive: false})
       removeEvent(ownerDocument, dragEventFor.move, handleDrag)
       removeEvent(ownerDocument, dragEventFor.stop, handleDragStop)
       if (args.enableUserSelectHack) removeUserSelectStyles(ownerDocument)
@@ -162,10 +161,11 @@ export default function DraggableCore(props: DraggableCoreProps) {
 
   return (
     <>
-      {React.cloneElement(React.Children.only(args.children), {
+      {/* {React.cloneElement(React.Children.only(args.children), {
         onMouseDown: onMouseDown,
         onMouseUp: onMouseUp,
-      })}
+      })} */}
+      {args.children}
     </>
   );
 }

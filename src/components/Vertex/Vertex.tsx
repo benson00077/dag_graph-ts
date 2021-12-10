@@ -29,21 +29,15 @@ export default function Vertex(props: {
       }
     }))
   }
-  const onStart = () => setState(prev => ({...prev, activeDrags: ++state.activeDrags}));
-  const onStop = () => setState(prev => ({...prev, activeDrags: --state.activeDrags}));
+  const onStart = () => setState(prev => ({...prev, activeDrags: state.activeDrags++}));
+  const onStop = () => setState(prev => ({...prev, activeDrags: state.activeDrags--}));
 
   const dragHandlers = {onStart: onStart, onStop: onStop};
-
-  let translate = {
-    x: 1,
-    y: 2,
-  };
 
   let posn = {
     position: `absolute`,
     top: `${topStyle}`,
     left: `${leftStyle}`,
-    transform: `translateX(${translate.x}px) translateY(${translate.y}px)`,
   };
 
   useEffect(() => {
@@ -52,9 +46,16 @@ export default function Vertex(props: {
 
   return (
     <>
-      <Draggable {...dragHandlers} onDrag={handleDrag} forwardedRef={forwardedRef}> 
+      <Draggable 
+        {...dragHandlers} 
+        onDrag={handleDrag} 
+        forwardedRef={forwardedRef}
+        //position={{x: leftPosition, y: topPosition}}
+        > 
         <S.Container posn={posn} ref={forwardedRef} id={name}>
           {name}
+          <br/>
+          {`x: ${state.deltaPosition.x.toFixed(0)}, y: ${state.deltaPosition.y.toFixed(0)}`}
         </S.Container>
       </Draggable>
     </>

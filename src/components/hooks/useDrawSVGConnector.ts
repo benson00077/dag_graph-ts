@@ -29,7 +29,7 @@ export default function useDrawConnector() {
   return ({ drawConnectorInitial, drawConnectorDynamic})
 }
 
-
+//TODO
 export class SvgPathPoint {
   private from: HTMLDivElement
   private to: HTMLDivElement
