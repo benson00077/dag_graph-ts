@@ -43,19 +43,70 @@ export default class Graph extends Dag implements IdagData {
     })
   }
 
+  private deleteFromIncomingArr(deleteName: string, vertex: Vertex) {
+    vertex.incomingNames = vertex.incomingNames.filter(item => item !== deleteName)
+  }
+  
+  private deleteFromIncoming(deleteNameKey: string, vertex: Vertex) {
+    delete vertex.incoming[deleteNameKey]
+  }
+
+  private getOutgoingMap() {
+    let outGoingMap:{[name: string]: string[]} = {}
+    for (const [name, vertex] of Object.entries(this.vertices)) {
+      for (let from of vertex.incomingNames) {
+        if (outGoingMap[from] !== undefined) {
+          if (outGoingMap[from].includes(name)) {
+            continue
+          } else {
+            outGoingMap[from].push(name)
+          }
+        } else if (outGoingMap[from] === undefined) {
+          outGoingMap[from] = [name]
+        }
+      } 
+    }
+    return outGoingMap
+  }
+
   giveRank() {
     if (this.topSorted.length !== this.names.length) this.topologySortCaller()
     this.rank = {} // if not reset to empty, second time calling visit_giveRank wouod cause unexpected result
     this.visit_giveRank()
   }
 
-  delete(name: string) {
-    //TODO
+  deleteEdge(fromName: string, toName: string) {
+    if (!fromName || !toName || fromName === toName) return
+    let from = this.vertices[fromName]
+    if (!from.hasOutgoing) return
+    let to = this.vertices[toName]
+    if (to.incoming.hasOwnProperty(fromName)) {
+      delete to.incoming[fromName]
+    }
+  }
+
+  delete(deleteName: string) {
+    
+    // Delete edge: whoever's has only outgoing and it is deleName
+    let outGoingMap = this.getOutgoingMap()
+    for (const [vertexName, outgoingList] of Object.entries(outGoingMap)) {
+      if (outgoingList.includes(deleteName) && outgoingList.length === 1) {
+        this.vertices[vertexName].hasOutgoing = false
+      }
+    }
+  
+    // Delete edge: whoever's 檢查 del 的下家 刪除掉     del 這個 incomming
+    for (const [vertexName, vertex] of Object.entries(this.vertices)) {
+      this.deleteFromIncomingArr(deleteName, vertex)
+      this.deleteFromIncoming(deleteName, vertex)
+    }
+
+    // Delete Vertex
+    delete this.vertices[deleteName]
+
   }
 
   changeName() {
     //TODO
   }
-
-  
 }

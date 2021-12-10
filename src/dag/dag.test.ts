@@ -79,6 +79,11 @@ describe("Test Graph class methods", () => {
   })
 
   test("del methods", () => {
-    graph.delete("Alice");
+    graph.delete("Catherine");
+    expect(graph.vertices["George"].incomingNames).toEqual([])
+    expect(graph.vertices["David"].incoming["Catherine"]).toEqual(undefined)
+    expect(graph.vertices["Flora"].hasOutgoing).toEqual(false)
+    expect(graph.vertices["Catherine"]).toEqual(undefined)
+
   })
 })
