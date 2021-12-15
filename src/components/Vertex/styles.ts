@@ -3,8 +3,8 @@ import styled from "styled-components";
 interface IPosn {
   posn: {
     position: string,
-    top: string,
-    left: string,
+    top?: string,
+    left?: string,
   }
 }
 

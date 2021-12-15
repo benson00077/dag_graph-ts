@@ -1,8 +1,7 @@
 import React, { useEffect, useContext } from "react";
-//import useDrawConnector from "./useDrawConnector";
-//import useDrawConnector from "./useDrawConnector_origin";
 import { PositionContext } from "../contexts/PositionContext";
-import useDrawConnector from "../hooks/useDrawSVGConnector";
+import { useDrawConnectorInitial } from "../hooks/useDrawSVGConnector";
+
 
 export default function Arrow(props: {
   incommingName: string;
@@ -13,7 +12,7 @@ export default function Arrow(props: {
   const { incommingName, name, forwardedRef, forwardedDivsRef } = props;
 
   let [positionMap] = useContext(PositionContext);
-  let {drawConnectorInitial} = useDrawConnector()
+  let {drawConnectorInitial} = useDrawConnectorInitial()
 
 
   function relatedDivsChecker() {
@@ -38,11 +37,7 @@ export default function Arrow(props: {
   useEffect(() => {
     /** Mount path command on SVGElement */
     let relatedDivs = relatedDivsChecker()
-    let translateMap = {
-      divFrom: { x: 0, y: 0 },
-      divTo: { x: 0, y: 0 },
-    };
-    drawConnectorInitial(relatedDivs, forwardedRef.current, translateMap)
+    drawConnectorInitial(relatedDivs, forwardedRef.current)
 
   }, [forwardedDivsRef]);
 

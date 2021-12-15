@@ -1,11 +1,12 @@
 import { IdagData } from "../dag/types";
+import { RefsArrows, RefsDiv } from "../ts/types/app_types";
 
 import Vertex from "./Vertex/Vertex";
 
 type vertexRendererParas = {
   rank: IdagData["rank"];
   topSorted: IdagData["topSorted"];
-  refs: [React.MutableRefObject<any>, React.MutableRefObject<any>]; // [...{current: [..., {current: Ele} ]}]
+  refs: [React.MutableRefObject<RefsDiv>, React.MutableRefObject<RefsArrows>]; // [...{current: [..., {current: Ele} ]}]
 };
 
 export default function vertexRenderer({

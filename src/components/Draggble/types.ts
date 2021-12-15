@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import React, { ForwardedRef, ReactElement } from "react";
 import { ControlPosition, PositionOffsetControlPosition } from "./domFns";
 
 /**
@@ -34,7 +34,8 @@ export type DraggableCoreDefaultProps = {
 }
 
 export type DraggableCoreProps = DraggableCoreDefaultProps &  {
-  forwardedRef: { current: HTMLDivElement };
+  // forwardedRef: { current: HTMLDivElement };
+  forwardedRef: React.RefObject<HTMLDivElement>;
   children: ReactElement;
   // cancle?: string,
   // offsetParent?: HTMLElement, 

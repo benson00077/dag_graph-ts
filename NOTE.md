@@ -1,3 +1,8 @@
+# TODO
+
+- update vertex name (maybe double click)
+- delete vertex (maybe hover over trash can icon)
+- bar select different arrows style
 
 # 👉 About this project
 
@@ -31,7 +36,7 @@
 ## App
 ```jsx
   const [state, setState] = useState({
-    activeDrags: 0, // 計算拖曳幾次
+    activeDrags: 0, // 計算同時拖曳了幾個
     deltaPosition: {x: 0, y:0},
     controlledPosition: {x: -400, y: 200}
   })
@@ -47,8 +52,8 @@
     dragging: false,
     dragged: false,
     // Current transform x and y, default or from props
-    x: 0, 
-    y: 0,
+    x: props.defaultPosition?.x || props.position?.x || args.position.x ,
+    y: props.defaultPosition?.y || props.position?.y || args.position.y ,
   });
 ```
 - onDragStart: 封裝父層 onStart

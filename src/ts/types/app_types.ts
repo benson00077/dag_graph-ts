@@ -9,3 +9,6 @@ export type dagEdagesInput = {
   vertex: string
   outgoing: string | string[]
 }
+
+export type RefsDiv = React.RefObject<HTMLDivElement>[] // {current: [..., {current: Ele} ]}
+export type RefsArrows = React.RefObject<SVGPathElement>[]

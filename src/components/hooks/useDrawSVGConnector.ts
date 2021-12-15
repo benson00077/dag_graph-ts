@@ -1,59 +1,57 @@
-//TODO 
-// drawConnectorInitial = (divFrom, divTo, arrowRef, translate)
-// drawConnectorDynamic = (arrowsRefArr, vertexName, draggingDiv, translate)  vertexName to know is From arrow / To arrow.
+import { RefsArrows } from "../../ts/types/app_types"
+import { SvgPath, SvgPathEnds, getNewCurvesPathCommnadAfterDrag } from "../utils/svgPathHandler"
 
-import { SvgPath, SvgPathEnd } from "../utils/svgPathHandler"
-
-export default function useDrawConnector() {
+export function useDrawConnectorInitial() {
   function drawConnectorInitial(
     divs: {from: HTMLDivElement, to: HTMLDivElement},
     arrowRef: SVGPathElement,
-    translateMap: {divFrom: {x:number, y:number}, divTo: {x:number, y:number}}
+    translateMap = {
+      divFrom: { x: 0, y: 0 },
+      divTo: { x: 0, y: 0 },
+    } // TODO: btn switch btw defualt position <-> dragged positin
   ) {
-    //TODO
     const path = new SvgPath(arrowRef)
-    const ends = new SvgPathEnd(divs)
-    const pathCommand = ends.getCurvesCommand()
+    const ends = new SvgPathEnds(divs)
+    const pathCommand = ends.getCurveCommand()
     path.mount(pathCommand)
   }
 
-  function drawConnectorDynamic(
-    arrowsRef: React.RefObject<SVGPathElement>[],
-    vertexName: string,
-    draggingDiv: HTMLDivElement,
-    translate: {x: number, y:number}
-  ) {
-    //TODO
-  }
-
-  return ({ drawConnectorInitial, drawConnectorDynamic})
+  return ({ drawConnectorInitial })
 }
 
-//TODO
-export class SvgPathPoint {
-  private from: HTMLDivElement
-  private to: HTMLDivElement
 
-  constructor(divs: {divFrom: HTMLDivElement, divTo: HTMLDivElement}) {
-    this.from = divs.divFrom
-    this.to = divs.divTo
-  }
-  
-  fromLeftCurved() {
-    const pathPoints = {
-      from: {
-        x: this.from.offsetLeft - 8,
-        y: this.from.offsetTop + this.from.offsetHeight / 2 + 10
-      },
-      to: {
-        x: this.to.offsetLeft - 8,
-        y: this.to.offsetTop  + this.to.offsetHeight / 2 - 10
+
+export function useDrawConnectorDynamic() {
+
+  let defaultPathMomoizer: {[pathId: string]: string} = {}
+
+  function drawConnectorDynamic(
+    arrowsRef: RefsArrows,
+    vertexName: string,
+    translate: {x: number, y:number}
+  ) {
+    //TODO   
+    arrowsRef.forEach((arrowRef, i) => {
+      const pathRef = arrowRef.current
+      let indicator: "FROM" | "TO"
+      if (pathRef?.getAttribute("data-vertex_from") === vertexName ) {
+        indicator = "FROM" 
+      } else if (pathRef?.getAttribute("data-vertex_to") === vertexName ) {
+        indicator = "TO"
+      } else throw new Error("SVGPathElemet missing attrivute data-vertex_from and data-vertex_to")
+
+      const path = new SvgPath(pathRef)
+      
+      if (!path.command) throw new Error ("path.command not found")
+      if (!defaultPathMomoizer[pathRef.id]) {
+        defaultPathMomoizer[pathRef.id] = path.command
       }
-    }
-    return pathPoints
+      if (defaultPathMomoizer[pathRef.id]) {
+        const newPathCommand = getNewCurvesPathCommnadAfterDrag(defaultPathMomoizer[pathRef.id], indicator, translate)
+        path.mount(newPathCommand)
+      }
+    })
   }
 
-  fromButtonTop() {
-    //TODO
-  }
+  return ({ drawConnectorDynamic })
 }

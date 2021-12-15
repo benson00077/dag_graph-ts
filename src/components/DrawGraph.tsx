@@ -4,6 +4,7 @@ import React, { useRef, useContext } from "react";
 // import DrawArrow from "./DrawArrow";
 // import ButtonGraph from "./ButtonGraph";
 import { IdagData } from "../dag/types"
+import { RefsArrows, RefsDiv } from "../ts/types/app_types";
 import { PositionContext } from "./contexts/PositionContext"
 import arrowRenderer from "./ArrowRenderer";
 import vertexRenderer  from './VertexRenderer'
@@ -14,9 +15,6 @@ type DrawGraphProps = {
   topSorted: string[]
 }
 
-
-type RefsDiv = React.RefObject<HTMLDivElement>[] // {current: [..., {current: Ele} ]}
-type RefsArrows = React.RefObject<SVGPathElement>[]
 
 export default function DrawGraph({ dag, topSorted }: DrawGraphProps) {
 

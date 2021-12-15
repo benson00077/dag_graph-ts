@@ -65,12 +65,12 @@ export default function DraggableCore(props: DraggableCoreProps) {
       lastX: x,
       lastY: y
     })
-
   }
 
   function handleDrag (e: MouseEvent) {
     // Get the current drag point from the event. This is used as the offset.
     const thisNode = args.forwardedRef.current
+    if(!thisNode) throw new Error("forwarded reference of vertex is null")
     const position = getControlPosition(e, thisNode)
     let { x, y } = position;
     // Create an event object w/ all the data parents need to make a decision here.
@@ -105,6 +105,7 @@ export default function DraggableCore(props: DraggableCoreProps) {
     if (!state.dragging) return; // return when re-render after setState in this function.
 
     const thisNode = args.forwardedRef.current;
+    if(!thisNode) throw new Error("forwarded reference of vertex is null")
     const ownerDocument = thisNode.ownerDocument
     const position = getControlPosition(e, thisNode);
     const {x, y} = position;
@@ -142,6 +143,7 @@ export default function DraggableCore(props: DraggableCoreProps) {
 
   useEffect(() => {
     const thisNode = args.forwardedRef.current;
+    if(!thisNode) throw new Error("forwarded reference of vertex is null")
     const ownerDocument = thisNode.ownerDocument
     
     addEvent(thisNode, dragEventFor.start, withControlledNodeRef(thisNode, handleDragStart), {passive: false});
