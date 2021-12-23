@@ -4,20 +4,19 @@ import { RefsArrows, RefsDiv } from "../ts/types/app_types";
 import Vertex from "./Vertex/Vertex";
 
 type vertexRendererParas = {
-  rank: IdagData["rank"];
-  topSorted: IdagData["topSorted"];
+  dag: IdagData;
   refs: [React.MutableRefObject<RefsDiv>, React.MutableRefObject<RefsArrows>]; // [...{current: [..., {current: Ele} ]}]
 };
 
 export default function vertexRenderer({
-  rank,
-  topSorted,
+  dag,
   refs,
 }: vertexRendererParas) {
+  const [rank, topSorted] = [dag.rank, dag.topSorted]
   if (!rank || !topSorted) return;
   const graphHeight = rank[`${topSorted[0]}`];
   const rowProcssedTimes: { [key: number]: number } = {}; //作為每一行div是否render過的計數器
-  const [ refsDivs, refsArrows ] = refs;
+  const [refsDivs, refsArrows] = refs;
 
   return (
     // 按照拓墣排序迭代每個 vertex，同時紀錄他們所在階層 currentRow
@@ -29,6 +28,7 @@ export default function vertexRenderer({
       return (
         <Vertex
           name={name}
+          value={dag.vertices[name].value}
           key={name}
           location={[row, column]}
           forwardedRef={refsDivs.current[i]}

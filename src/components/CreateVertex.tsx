@@ -10,13 +10,14 @@ type CreactVertexProps = {
 }
 
 
-export default function CreateVertex({verticesInput}: CreactVertexProps) {
+export default function CreateVertex({ verticesInput }: CreactVertexProps) {
 
-  const dag = useContext(DagContext)
+  const [dag] = useContext(DagContext)
 
   function createVertex() {
     let { incomming, vertex, outgoing } = inputParser(verticesInput)
-    dag.addEdges(vertex, null, outgoing, incomming)
+    const value = dag.vertices[vertex] ? dag.vertices[vertex].value : null
+    dag.addEdges(vertex, value, outgoing, incomming)
   }
 
   if (verticesInput.vertex) {
@@ -24,13 +25,13 @@ export default function CreateVertex({verticesInput}: CreactVertexProps) {
       createVertex()
       dag.giveRank()
     } catch (err) {
-      alert(err)
+      console.log(err)
     }
   }
 
   return (
     <Fragment>
-      <DrawGraph dag={dag} topSorted={dag["topSorted"]}/>
+      <DrawGraph dag={dag} topSorted={dag["topSorted"]} />
     </Fragment>
   )
 }

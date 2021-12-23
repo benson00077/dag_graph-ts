@@ -60,12 +60,10 @@ export default function DrawGraph({ dag, topSorted }: DrawGraphProps) {
           {arrowRenderer({dag, refs: [refsDivs, refsArrows]})}
         </svg>
           {vertexRenderer({
-            rank: dag.rank,
-            topSorted: dag.topSorted,
+            dag,
             refs: [refsDivs, refsArrows]
           })}
       </div>
-      <div>{dag.topSorted}</div>
     </>
   )
 }

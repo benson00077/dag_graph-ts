@@ -1,4 +1,4 @@
-export type vertexValue = null | string | number
+export type vertexValue = null | string
 export type Vertex = {
   name: string;
   incoming: {

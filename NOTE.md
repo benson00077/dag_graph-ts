@@ -1,6 +1,6 @@
 # TODO
 
-- update vertex name (maybe double click)
+- update vertex name (maybe double click) -- 現在雖然顯示端沒問題，但既有的新增上下游vertex看的還是name 而不是 value
 - delete vertex (maybe hover over trash can icon)
 - bar select different arrows style
 
