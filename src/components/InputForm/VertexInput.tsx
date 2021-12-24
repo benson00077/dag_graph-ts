@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { input } from "../../ts/types/app_types";
 import * as S from "./styles"
 
 type VertexInputProps = {
-  setVerticesInput: React.Dispatch<React.SetStateAction<input>>
+  createVertex: ({}: input) => void;
 }
 
-export default function VertexInput({ setVerticesInput }: VertexInputProps) {
+export default function VertexInput({createVertex}: VertexInputProps) {
 
   const [vertex, setVertex] = useState('')
   const [incomming, setIncomming] = useState('')
@@ -15,11 +15,13 @@ export default function VertexInput({ setVerticesInput }: VertexInputProps) {
   function submitHandler(e: React.FormEvent) {
     e.preventDefault()
     if (!vertex) { alert(`Vertex Name must not be empty`) }
-    setVerticesInput({
+    
+    createVertex({
       vertex: vertex,
       incomming: incomming,
       outgoing: outgoing
     })
+
     setVertex('')
     setIncomming('')
     setOutgoing('')

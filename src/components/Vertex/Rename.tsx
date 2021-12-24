@@ -10,7 +10,7 @@ type RenameProps = {
 function Rename({ initName, children }: RenameProps) {
 
   const [value, setValue] = useState(initName)
-  const [dag, update, setUpdate] = useContext(DagContext)
+  const [dag, setDag] = useContext(DagContext)
   const formInputField = useRef<HTMLInputElement>(null)
   const onClick = () => {}
   const onDoubleClick = () => { 
@@ -23,15 +23,19 @@ function Rename({ initName, children }: RenameProps) {
 
   function submitHandler(e: React.FormEvent) {
     e.preventDefault()
-    dag.map(initName, value)
-    setUpdate(!update)
+    setDag.appendVertexValue(initName, value)
     if (formInputField.current) formInputField.current.blur()
+  }
+
+  function preventSelect(e: React.MouseEvent) {
+    console.log(e.currentTarget)
+    e.preventDefault()
   }
 
   return (
     <div style={{ height: "100%", width: "100%" }} onClick={handleClick} onDoubleClick={handleDoubleClick}>
-      <form onSubmit={submitHandler}>
-        <input ref={formInputField} type="text" value={value} onChange={e => { setValue(e.target.value) }}></input>
+      <form onSubmit={submitHandler} >
+        <input ref={formInputField} type="text" value={value} onChange={e => { setValue(e.target.value) }} onMouseDown={e => preventSelect(e)}></input>
       </form>
       {children}
     </div>

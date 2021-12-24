@@ -8,7 +8,8 @@ type arrowsRecord = {
 }
 
 export default function arrowsInfoGetter(dag: IdagData): [arrowsRecord, number] {
-  if (!dag.topSorted) throw new Error("dag has no topSorted yet");
+  
+  if (!dag.topSorted) throw new Error("dag has no topSorted yet, dag.topSorted might be undefined ");
   let topSorted = [...dag.topSorted];
   let counter = 0;
   let map: arrowsRecord = {};

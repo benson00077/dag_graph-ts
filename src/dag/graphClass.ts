@@ -75,16 +75,6 @@ export default class Graph extends Dag implements IdagData {
     this.visit_giveRank()
   }
 
-  deleteEdge(fromName: string, toName: string) {
-    if (!fromName || !toName || fromName === toName) return
-    let from = this.vertices[fromName]
-    if (!from.hasOutgoing) return
-    let to = this.vertices[toName]
-    if (to.incoming.hasOwnProperty(fromName)) {
-      delete to.incoming[fromName]
-    }
-  }
-
   delete(deleteName: string) {
     
     // Delete edge: whoever's has only outgoing and it is deleName
@@ -104,6 +94,13 @@ export default class Graph extends Dag implements IdagData {
     // Delete Vertex
     delete this.vertices[deleteName]
 
+    // Delte from names 
+    this.names = this.names.filter((name) => {
+      return name !== deleteName
+    })
+
+    // update topSorted and rank
+    this.giveRank();
   }
 
   changeName() {

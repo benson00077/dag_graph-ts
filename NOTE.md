@@ -1,13 +1,26 @@
+- [TODO](#todo)
+- [👉 About this project](#-about-this-project)
+- [👉 About dark/light theme w/ Styled Component](#-about-darklight-theme-w-styled-component)
+  - [Style](#style)
+- [TypeScript in general](#typescript-in-general)
+  - [Default Props in Functional Component by TypeScript](#default-props-in-functional-component-by-typescript)
+- [👉 About Draggable](#-about-draggable)
+  - [App](#app)
+  - [Draggable](#draggable)
+  - [DraggableCore](#draggablecore)
+
 # TODO
 
-- update vertex name (maybe double click) -- 現在雖然顯示端沒問題，但既有的新增上下游vertex看的還是name 而不是 value
-- delete vertex (maybe hover over trash can icon)
+- ⭕update vertex name (double click)
+  - 利用 vertex name / value 資料結構 - 僅顯示端顯示沒問題
+  - 處理 click / double click 兩者，利用可取消的 Promise
+- ⭕delete vertex (maybe hover over trash can icon) -- instance of class 造成 uncontorlled component 
+  - 封裝在 dagContext 內，並新增 update state 通知 React dag 內部已經修改
 - bar select different arrows style
 
 # 👉 About this project
 
 - TBD 
-- Delete Vertex ? dag class
 
 # 👉 About dark/light theme w/ Styled Component
 

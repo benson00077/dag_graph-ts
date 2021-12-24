@@ -1,7 +1,7 @@
 import React from "react";
 import { cancellablePromiseObj, cancellablePromise } from "../utils/cancellablePromise";
 
-const noop = () => {};
+// const noop = () => {};
 const delay = (n: number) => new Promise((resolve) => setTimeout(resolve, n));
 
 export function useClickPreventionOnDoubleClick(

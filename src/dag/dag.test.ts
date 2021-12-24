@@ -84,6 +84,8 @@ describe("Test Graph class methods", () => {
     expect(graph.vertices["David"].incoming["Catherine"]).toEqual(undefined)
     expect(graph.vertices["Flora"].hasOutgoing).toEqual(false)
     expect(graph.vertices["Catherine"]).toEqual(undefined)
-
+    expect(graph.names.includes("Catherine")).toEqual(false)
+    expect(graph.topSorted.includes("Catherine")).toEqual(false)
+    expect("Catherine" in graph.rank).toEqual(false)
   })
 })

@@ -1,8 +1,5 @@
 
 import React, { useRef, useContext } from "react";
-// import DrawVertex from "./DrawVertex";
-// import DrawArrow from "./DrawArrow";
-// import ButtonGraph from "./ButtonGraph";
 import { IdagData } from "../dag/types"
 import { RefsArrows, RefsDiv } from "../ts/types/app_types";
 import { PositionContext } from "./contexts/PositionContext"
@@ -17,7 +14,7 @@ type DrawGraphProps = {
 
 
 export default function DrawGraph({ dag, topSorted }: DrawGraphProps) {
-
+  
   const [positionMap, setPositionMap] = useContext(PositionContext)
   let [arrowsMap, arrowsNumber] = arrowsInfoGetter(dag)
 
@@ -40,7 +37,9 @@ export default function DrawGraph({ dag, topSorted }: DrawGraphProps) {
   return (
     <>
       <p id="instructions">
-        Click and drag either div to see automatic arrow adjustments.
+        Drag vertex
+        <br/>
+        Double click vertex to change title / name
       </p>
       <div className="graph-wrapper" >
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
