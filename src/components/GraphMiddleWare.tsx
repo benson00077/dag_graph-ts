@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { DagContext } from './contexts/DagContext';
 import DrawGraph from './DrawGraph';
-import DeleteVertex from './DeleteVertex';
+import DeleteVertex from './DeleteVertex/DeleteVertex';
 import VertexInput from "./InputForm/VertexInput";
 
 

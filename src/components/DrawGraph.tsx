@@ -6,7 +6,7 @@ import { PositionContext } from "./contexts/PositionContext"
 import arrowRenderer from "./ArrowRenderer";
 import vertexRenderer  from './VertexRenderer'
 import arrowsInfoGetter from "./utils/arrowsInfoGetter";
-import SelectArrowStyle from "../SelectArrowStyle";
+import SelectArrowStyle from "./SelectArrowStyle/SelectArrowStyle";
 import { arrowStyle } from '../ts/types/app_types'
 type DrawGraphProps = {
   dag: IdagData,
@@ -38,7 +38,7 @@ export default function DrawGraph({ dag, topSorted }: DrawGraphProps) {
 
   return (
     <>
-      <p id="instructions">
+      <p className="instructions">
         Drag vertex
         <br/>
         Double click vertex to change title / name

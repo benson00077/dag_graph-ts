@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Graph from "../dag/graphClass"
+import * as S from './style'
 
 type DeleteVertexProps = {
   deleteVertex: (target: string) => void,
@@ -13,13 +13,18 @@ function DeleteVertex({ deleteVertex }: DeleteVertexProps) {
   function submitHandler(e: React.FormEvent) {
     e.preventDefault()
     deleteVertex(target)
-    setTarget("")
+    setTarget('')
   }
 
   return (
-    <form onSubmit={submitHandler}>
-      <input name="vertex" value={target} onChange={e => { setTarget(e.target.value) }} />
-    </form>
+    <S.Form onSubmit={submitHandler}>
+      <label> Delete by tag : </label>
+      <input 
+        name="vertex" 
+        value={target} 
+        placeholder="🡪 a"
+        onChange={e => { setTarget(e.target.value) }} />
+    </S.Form>
   )
 }
 

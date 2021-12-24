@@ -16,10 +16,12 @@ function App() {
     <ThemeContext theme={theme}>
 
       <GlobalStyle />
-      <header>
+      <div className="toggler">
         <TogglerButton themeToggler={themeToggler} />
-      </header>
-      <h1>{theme}</h1>
+        <div>
+        <h1>{theme}</h1>
+        </div>
+      </div>
 
       <DagContextProvider>
         <PositionContextProvider>

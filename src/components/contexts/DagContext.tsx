@@ -5,7 +5,7 @@ import { input } from "../../ts/types/app_types";
 import inputParser from '../utils/inputParser';
 
 type setDag = {
-  createVertex: (input: input) => void,
+  createVertex: (input: input) => boolean,
   deleteVertex: (name: string) => void,
   appendVertexValue: (name: string, value: string) => void,
 }
@@ -33,14 +33,23 @@ export const DagContextProvider = (props: contextProps) => {
   }
 
   function createVertex(input: input) {
+    if (!input.vertex) {
+      alert(`Vertex Name must not be empty`)
+      return false
+    }
     let { incomming, vertex, outgoing } = inputParser(input)
     const value = dag.vertices[vertex] ? dag.vertices[vertex].value : null
     dag.addEdges(vertex, value, outgoing, incomming)
     dag.giveRank()
     setUpdate(!update)
+    return true
   }
 
   function deleteVertex(name: string) {
+    if (!dag.names.includes(name)) {
+      alert(`Tag >>> ${name} <<< not exist !`)
+      return
+    }
     dag.delete(name)
     setUpdate(!update)
   }

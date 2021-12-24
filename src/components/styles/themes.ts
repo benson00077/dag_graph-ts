@@ -3,6 +3,8 @@ export interface ThemeProps {
   text: string;
   button: string;
   vertexbg: string;
+  select: string;
+  option: string;
 }
 
 export const darkTheme: ThemeProps = {
@@ -10,6 +12,8 @@ export const darkTheme: ThemeProps = {
   text: 'var(--dark-text)',
   button: 'var(--dark-button)',
   vertexbg: 'var(--dark-vertexbg)',
+  select: 'var(--dark-select)',
+  option: 'var(--dark-option)',
 }
 
 export const lightTheme: ThemeProps = {
@@ -17,4 +21,6 @@ export const lightTheme: ThemeProps = {
   text: 'var(--light-text)',
   button: 'var(--light-button)',
   vertexbg: 'var(--light-vertexbg)',
+  select: 'var(--light-select)',
+  option: 'var(--light-option)',
 }
