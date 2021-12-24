@@ -40,6 +40,34 @@ export class SvgPathEnds {
     return [endFrom, endTo];
   }
 
+  private getPosnTopButtonEnds() {
+    let endFrom = {
+      x: this.from.offsetLeft + this.from.offsetWidth / 2,
+      y: this.from.offsetTop + this.from.offsetHeight + 8
+    }
+    let endTo = {
+      x: this.from.offsetLeft + this.from.offsetWidth / 2,
+      y: this.from.offsetTop - 8
+    }
+    endFrom.x += getTrans(this.from).number.x
+    endFrom.y += getTrans(this.from).number.y
+    endTo.x += getTrans(this.to).number.x
+    endTo.y += getTrans(this.to).number.y
+
+    return [endFrom , endTo]
+  }
+
+  getStraitCommand() {
+    const [endFrom, endTo] = this.getPosnTopButtonEnds();
+    // M142,200 L142,330
+    let straightPara = {
+      moveFrom: endFrom,
+      LineTo: endTo
+    }
+    let dStr = getStraightCommand(straightPara)
+    return dStr
+  }
+
   getCurveCommand() {
     const [endFrom, endTo] = this.getPosnLeftEnds();
     const delta = 100
@@ -82,6 +110,28 @@ export function getNewCurvesPathCommnadAfterDrag(prevCommand: string, indicator:
   return newCurvePara
 }
 
+export function getNewStraightPathCommandAfterDrag(prevCommand: string, indicator: "FROM" | "TO", translate: {x: number, y: number}) {
+  // prevCommand = "M200,239L471,305"
+  let prevPara = prevCommand.split(/[\s|,]/g) // ['M200', '239', 'L471', '305']
+  prevPara[0] = prevPara[0].replace("M", "")
+  prevPara[2] = prevPara[2].replace("L", "") // // ['200', '239', '471', '305']
+  
+  const straightPara = {
+    moveFrom: {x: +prevPara[0], y: +prevPara[1]},
+    LineTo: {x: +prevPara[2], y: +prevPara[3]},
+  }
+
+  if (indicator === "FROM") {
+    straightPara.moveFrom.x += translate.x
+    straightPara.moveFrom.y += translate.y
+  } else if (indicator === "TO") {
+    straightPara.LineTo.x += translate.x
+    straightPara.LineTo.y += translate.y
+  } else throw new Error("Wrong indicator format")
+  const newStraightPara = getStraightCommand(straightPara)
+  return newStraightPara
+}
+
 function getCurvePathCommand(CurvesPara: {
   moveFrom: { x: number; y: number };
   controlPoint1: { x: number; y: number };
@@ -94,6 +144,17 @@ function getCurvePathCommand(CurvesPara: {
     `C${controlPoint1.x},${controlPoint1.y} ` +
     `${controlPoint2.x},${controlPoint2.y} ` +
     `${moveTo.x},${moveTo.y}`;
+  return dStr;
+}
+
+function getStraightCommand(StraightPara: {
+  moveFrom: { x: number; y: number },
+  LineTo: { x: number; y: number }
+}) {
+  const {moveFrom, LineTo} = StraightPara;
+  const dStr = 
+    `M${moveFrom.x},${moveFrom.y} ` +
+    `L${LineTo.x},${LineTo.y}`;
   return dStr;
 }
 

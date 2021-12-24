@@ -1,7 +1,7 @@
-import { RefsArrows } from "../../ts/types/app_types"
-import { SvgPath, SvgPathEnds, getNewCurvesPathCommnadAfterDrag } from "../utils/svgPathHandler"
+import { arrowStyle, RefsArrows } from "../../ts/types/app_types"
+import { SvgPath, SvgPathEnds, getNewCurvesPathCommnadAfterDrag, getNewStraightPathCommandAfterDrag } from "../utils/svgPathHandler"
 
-export function useDrawConnectorInitial() {
+export function useDrawConnectorInitial(styleOpt: arrowStyle) {
   function drawConnectorInitial(
     divs: {from: HTMLDivElement, to: HTMLDivElement},
     arrowRef: SVGPathElement,
@@ -12,7 +12,9 @@ export function useDrawConnectorInitial() {
   ) {
     const path = new SvgPath(arrowRef)
     const ends = new SvgPathEnds(divs)
-    const pathCommand = ends.getCurveCommand()
+    let pathCommand = ''
+    if (styleOpt === 'CURVE') pathCommand = ends.getCurveCommand()
+    if (styleOpt === 'STRAIGHT') pathCommand = ends.getStraitCommand()
     path.mount(pathCommand)
   }
 
@@ -21,10 +23,10 @@ export function useDrawConnectorInitial() {
 
 
 
-export function useDrawConnectorDynamic() {
+export function useDrawConnectorDynamic(styleOpt: arrowStyle) {
 
-  let defaultPathMomoizer: {[pathId: string]: string} = {}
-
+  let defaultPathMemoizer: {[pathId: string]: string} = {}
+  
   function drawConnectorDynamic(
     arrowsRef: RefsArrows,
     vertexName: string,
@@ -43,11 +45,16 @@ export function useDrawConnectorDynamic() {
       const path = new SvgPath(pathRef)
       
       if (!path.command) throw new Error ("path.command not found")
-      if (!defaultPathMomoizer[pathRef.id]) {
-        defaultPathMomoizer[pathRef.id] = path.command
+      if (!defaultPathMemoizer[pathRef.id]) {
+        defaultPathMemoizer[pathRef.id] = path.command
       }
-      if (defaultPathMomoizer[pathRef.id]) {
-        const newPathCommand = getNewCurvesPathCommnadAfterDrag(defaultPathMomoizer[pathRef.id], indicator, translate)
+      if (defaultPathMemoizer[pathRef.id]) {
+        let newPathCommand = ''
+        if (styleOpt === 'CURVE') {
+          newPathCommand = getNewCurvesPathCommnadAfterDrag(defaultPathMemoizer[pathRef.id], indicator, translate)
+        } else if (styleOpt === 'STRAIGHT') {
+          newPathCommand = getNewStraightPathCommandAfterDrag(defaultPathMemoizer[pathRef.id], indicator, translate)
+        }
         path.mount(newPathCommand)
       }
     })

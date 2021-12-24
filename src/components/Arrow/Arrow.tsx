@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from "react";
+import { arrowStyle } from "../../ts/types/app_types";
 import { PositionContext } from "../contexts/PositionContext";
 import { useDrawConnectorInitial } from "../hooks/useDrawSVGConnector";
 
@@ -6,13 +7,14 @@ import { useDrawConnectorInitial } from "../hooks/useDrawSVGConnector";
 export default function Arrow(props: {
   incommingName: string;
   name: string;
+  arrowStyleOpt: arrowStyle;
   forwardedRef: React.MutableRefObject<SVGPathElement>;
   forwardedDivsRef: React.RefObject<HTMLDivElement>[];
 }) {
-  const { incommingName, name, forwardedRef, forwardedDivsRef } = props;
+  const { incommingName, name, arrowStyleOpt, forwardedRef, forwardedDivsRef } = props;
 
   let [positionMap] = useContext(PositionContext);
-  let {drawConnectorInitial} = useDrawConnectorInitial()
+  let {drawConnectorInitial} = useDrawConnectorInitial(arrowStyleOpt)
 
 
   function relatedDivsChecker() {

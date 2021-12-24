@@ -2,19 +2,18 @@ import { useEffect, useState } from "react";
 import * as S from "./styles";
 import Draggable from "../Draggble/Draggable";
 import { DraggableData } from "../Draggble/types";
-import { RefsArrows } from "../../ts/types/app_types"
+import { arrowStyle, RefsArrows } from "../../ts/types/app_types"
 import { useDrawConnectorDynamic } from "../hooks/useDrawSVGConnector"
-import { vertexValue } from "../../dag/types";
 import Rename from "./Rename";
 
 export default function Vertex(props: {
   name: string;
-  value: string | null;
+  arrowStyleOpt: arrowStyle;
   location: [number, number];
   forwardedRef: React.RefObject<HTMLDivElement>;
   forwardedArrowsRefs: RefsArrows;
 }) {
-  const { name, value, location, forwardedRef, forwardedArrowsRefs } = props;
+  const { name, arrowStyleOpt, location, forwardedRef, forwardedArrowsRefs } = props;
   const [row, column] = location;
   const [topPosition, leftPosition] = [150 + 150 * row, 150 * column];
   const [topStyle, leftStyle] = [topPosition + "px", leftPosition + "px"];
@@ -23,7 +22,7 @@ export default function Vertex(props: {
     deltaPosition: { x: 0, y: 0 },
     controlledPosition: { x: -400, y: 200 } //TODO
   })
-  const { drawConnectorDynamic } = useDrawConnectorDynamic()
+  const { drawConnectorDynamic } = useDrawConnectorDynamic(arrowStyleOpt)
   const relatedArrows = relatedArrowsDetector(forwardedArrowsRefs, name);
 
   const handleDrag = (e: MouseEvent, ui: DraggableData) => {

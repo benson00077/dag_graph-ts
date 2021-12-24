@@ -12,7 +12,7 @@ function GraphMiddleWare() {
   return (
     <>
       <DrawGraph dag={dag} topSorted={dag.topSorted} />
-      <VertexInput createVertex={setDag.createVertex}/>
+      <VertexInput createVertex={setDag.createVertex} />
       <DeleteVertex deleteVertex={setDag.deleteVertex} />
     </>
   )

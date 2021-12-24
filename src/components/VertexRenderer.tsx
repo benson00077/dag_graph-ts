@@ -1,16 +1,18 @@
 import { IdagData } from "../dag/types";
-import { RefsArrows, RefsDiv } from "../ts/types/app_types";
+import { arrowStyle, RefsArrows, RefsDiv } from "../ts/types/app_types";
 
 import Vertex from "./Vertex/Vertex";
 
 type vertexRendererParas = {
   dag: IdagData;
   refs: [React.MutableRefObject<RefsDiv>, React.MutableRefObject<RefsArrows>]; // [...{current: [..., {current: Ele} ]}]
+  arrowStyleOpt: arrowStyle;
 };
 
 export default function vertexRenderer({
   dag,
   refs,
+  arrowStyleOpt,
 }: vertexRendererParas) {
   const [rank, topSorted] = [dag.rank, dag.topSorted]
   if (!rank || !topSorted) return;
@@ -28,7 +30,7 @@ export default function vertexRenderer({
       return (
         <Vertex
           name={name}
-          value={dag.vertices[name].value}
+          arrowStyleOpt={arrowStyleOpt}
           key={name}
           location={[row, column]}
           forwardedRef={refsDivs.current[i]}

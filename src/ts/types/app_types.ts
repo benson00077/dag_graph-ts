@@ -12,3 +12,5 @@ export type dagEdagesInput = {
 
 export type RefsDiv = React.RefObject<HTMLDivElement>[] // {current: [..., {current: Ele} ]}
 export type RefsArrows = React.RefObject<SVGPathElement>[]
+
+export type arrowStyle = 'CURVE' | 'STRAIGHT'

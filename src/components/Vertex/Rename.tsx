@@ -28,7 +28,6 @@ function Rename({ initName, children }: RenameProps) {
   }
 
   function preventSelect(e: React.MouseEvent) {
-    console.log(e.currentTarget)
     e.preventDefault()
   }
 

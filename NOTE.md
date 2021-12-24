@@ -8,9 +8,13 @@
   - [App](#app)
   - [Draggable](#draggable)
   - [DraggableCore](#draggablecore)
+  - [note](#note)
+    - [no para passed in function](#no-para-passed-in-function)
 
 # TODO
 
+- SVG arrows on Drag (see useDrawConnectorDynamic)
+  - 利用閉包來做 Memoizer
 - ⭕update vertex name (double click)
   - 利用 vertex name / value 資料結構 - 僅顯示端顯示沒問題
   - 處理 click / double click 兩者，利用可取消的 Promise
@@ -92,3 +96,7 @@
 - handleDragStop: 封裝父層 onDragStop
   - shouldUpdate: 
 - useEffect: 實現事件監聽 ❓ 還是沒很懂 useEffect 內 add / remove EventListener 的機制 
+
+## note
+### no para passed in function 
+[see here](https://stackoverflow.com/questions/11107823/what-happens-if-i-dont-pass-a-parameter-in-a-javascript-function)
