@@ -14,7 +14,6 @@ export default function VertexInput({createVertex}: VertexInputProps) {
 
   function submitHandler(e: React.FormEvent) {
     e.preventDefault()
-  
     const success = createVertex({
       vertex: vertex,
       incomming: incomming,
@@ -25,6 +24,18 @@ export default function VertexInput({createVertex}: VertexInputProps) {
     setVertex('')
     setIncomming('')
     setOutgoing('')
+  }
+
+  const mouseDownEffect = (e: React.MouseEvent) => {
+    const btn = e.currentTarget
+    btn.classList.add("btn-mouse-down")
+  }
+
+  const mouseUpEffect = (e: React.MouseEvent) => {
+    const btn = e.currentTarget
+    if (btn.classList.contains("btn-mouse-down")) {
+      btn.classList.remove("btn-mouse-down")
+    }
   }
 
   return (
@@ -40,7 +51,7 @@ export default function VertexInput({createVertex}: VertexInputProps) {
           <label>Outgoing Note Tag</label>
           <input name="outgoing" value={outgoing} placeholder="🡪 e, f, g ..." onChange={e => { setOutgoing(e.target.value) }} />
 
-          <S.Button>Create !</S.Button>
+          <S.Button onMouseDown={e => mouseDownEffect(e)} onMouseUp={e => mouseUpEffect(e)}>Create !</S.Button>
         </S.Form>
       </S.Vertex_input>
     </>

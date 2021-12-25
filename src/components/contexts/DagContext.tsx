@@ -39,8 +39,13 @@ export const DagContextProvider = (props: contextProps) => {
     }
     let { incomming, vertex, outgoing } = inputParser(input)
     const value = dag.vertices[vertex] ? dag.vertices[vertex].value : null
-    dag.addEdges(vertex, value, outgoing, incomming)
-    dag.giveRank()
+    try {
+      dag.addEdges(vertex, value, outgoing, incomming)
+      dag.giveRank()
+    } catch (err) {
+      alert(err)
+      return false
+    }
     setUpdate(!update)
     return true
   }

@@ -21,6 +21,13 @@ export const Container = styled.div<IPosn>`
   top: ${( {posn} ) => posn.top};
   left: ${( {posn} ) => posn.left};
 
+  &:hover {
+    cursor: grab;
+  }
+
+  &.draggable-dragging{
+    cursor: grabbing;
+  }
 
   /*
       To Prevent user selectin inside the drag source 
@@ -53,7 +60,7 @@ export const Container = styled.div<IPosn>`
     border: 0;
     border-radius: 15px;
     outline: 0;
-    cursor: default;
+    cursor: inherit;
     max-width: 80px;
     font-size: 1.08rem;
     text-align: center;

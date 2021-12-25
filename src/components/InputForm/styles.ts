@@ -55,4 +55,8 @@ export const Button = styled.button`
   border: 1px solid rgba( 255, 255, 255, 0.18 );
 
   color: ${( {theme}) => theme.text};
+
+  &.btn-mouse-down{
+    transform: scale(0.95)
+  }
 `

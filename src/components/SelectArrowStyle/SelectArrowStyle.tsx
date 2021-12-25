@@ -13,12 +13,25 @@ function SelectArrowStyle({ styleOpt, setStyleOpt }: selectArrowStyleProps) {
   //TODO: svg path not alignt with window viewpoint
   const [showOptions, setShowOptions] = useState(false)
 
+  const mouseDownEffect = (e: React.MouseEvent) => {
+    const option = e.currentTarget
+    option.classList.add("option-mouse-down")
+  }
+
+  const mouseUpEffect = (e: React.MouseEvent) => {
+    const option = e.currentTarget
+    if (option.classList.contains("option-mouse-down")) {
+      option.classList.remove("option-mouse-down")
+    }
+  }
+
+
   return (
     <>
       <S.Dropdown onMouseEnter={() => setShowOptions(true)} onMouseLeave={() => setShowOptions(false)}>
         <p> Arrow style </p>
         <div className={`options ${showOptions ? "expandAria" : "collapseAria"}`} data-aria-expend={showOptions}>
-          <div onClick={() => setStyleOpt("CURVE")}>
+          <div onClick={() => setStyleOpt("CURVE")} onMouseDown={e => mouseDownEffect(e)} onMouseUp={e => mouseUpEffect(e)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <defs>
                 <marker
@@ -43,8 +56,8 @@ function SelectArrowStyle({ styleOpt, setStyleOpt }: selectArrowStyleProps) {
               </g>
             </svg>
           </div>
-          <div onClick={() => setStyleOpt("STRAIGHT")}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+          <div onClick={() => setStyleOpt("STRAIGHT")} onMouseDown={e => mouseDownEffect(e)} onMouseUp={e => mouseUpEffect(e)}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <defs>
                 <marker
                   id="arrowhead"

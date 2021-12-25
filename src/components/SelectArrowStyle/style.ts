@@ -32,7 +32,6 @@ export const Dropdown = styled.div`
     position: absolute;
     top: -${optionsHeight + unit};
     height: ${optionsHeight + unit};
-    width: 25vw;
 
     display: flex;
     flex-direction: row;
@@ -47,11 +46,15 @@ export const Dropdown = styled.div`
       border: 1px solid rgba( 255, 255, 255, 0.18 );
       margin: 0.5rem;
 
+      &:hover {
+        transform: translate(-0.2rem, -0.2rem);
+      }
+
+      &.option-mouse-down {
+        transform: scale(0.95);
+      }
+
       /* TODO: svg path not align with viewpoint */
-      width: 135px;
-      height: 144px;
-
-
       svg {
         marker#arrowhead {
           fill: ${( {theme} ) => theme.text}
@@ -65,11 +68,20 @@ export const Dropdown = styled.div`
   }
   
   .collapseAria {
+    transform: translateX(-2rem);
+    width: 0;
     opacity: 0;
-    transition: all 0.3s smooth;
+    transition-property: width, opacity, transform;
+    transition-duration: 0.5s, 0.5s, 0.5s;
+    transition-timing-function: linear, ease-out, linear;
   }
   
   .expandAria {
+    transform: translateX(0);
+    width: 25vw;
     opacity: 1;
+    transition-property: width, opacity, transform;
+    transition-duration: 0.5s, 1s, 0.5s;
+    transition-timing-function: linear, ease-in, linear;
   }
 `
