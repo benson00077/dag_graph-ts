@@ -3,6 +3,7 @@ import { DagContext } from './contexts/DagContext';
 import DrawGraph from './DrawGraph';
 import DeleteVertex from './DeleteVertex/DeleteVertex';
 import VertexInput from "./InputForm/VertexInput";
+import ResetDag from './ResetDag/ResetDag';
 
 
 function GraphMiddleWare() {
@@ -14,6 +15,7 @@ function GraphMiddleWare() {
       <DrawGraph dag={dag} topSorted={dag.topSorted} />
       <VertexInput createVertex={setDag.createVertex} />
       <DeleteVertex deleteVertex={setDag.deleteVertex} />
+      <ResetDag reset={setDag.resetDag}/>
     </>
   )
 }

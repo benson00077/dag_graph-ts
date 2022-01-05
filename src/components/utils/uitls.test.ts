@@ -20,7 +20,6 @@ describe.skip("Test inputParser", () => {
   });
 });
 
-
 describe.skip("Test arrwosInfoGetter", () => {
   let dag = new Graph()
   dag.addEdges("d", null, ["e", "f", "g"], ["a", "b", "c"])

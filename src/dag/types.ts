@@ -6,7 +6,7 @@ export type Vertex = {
   };
   incomingNames: string[];
   hasOutgoing: boolean;
-  value: vertexValue;
+  value: null | string;
 }
 export type Vertices = {
   [name: string] : Vertex

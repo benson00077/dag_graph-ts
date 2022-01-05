@@ -7,10 +7,12 @@ import { PositionContextProvider } from "./components/contexts/PositionContext";
 import { DagContextProvider } from "./components/contexts/DagContext";
 
 import GraphMiddleWare from './components/GraphMiddleWare';
+import { useDagStorage } from './components/hooks/useDagStorage';
 
 function App() {
-  
+
   const { theme, themeToggler } = useThemeMode();
+  const { dagStorage, setlocalStorage } = useDagStorage();
 
   return (
     <ThemeContext theme={theme}>
@@ -19,16 +21,16 @@ function App() {
       <div className="toggler">
         <TogglerButton themeToggler={themeToggler} />
         <div>
-        <h1>{theme}</h1>
+          <h1>{theme}</h1>
         </div>
       </div>
 
-      <DagContextProvider>
+      <DagContextProvider setlocalStorage={setlocalStorage}>
         <PositionContextProvider>
-            <GraphMiddleWare />
+          <GraphMiddleWare />
         </PositionContextProvider>
       </DagContextProvider>
-      
+
     </ThemeContext>
   );
 }

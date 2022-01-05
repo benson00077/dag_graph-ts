@@ -30,6 +30,7 @@ export default function vertexRenderer({
       return (
         <Vertex
           name={name}
+          vertexValue={dag.vertices[name].value}
           arrowStyleOpt={arrowStyleOpt}
           key={name}
           location={[row, column]}

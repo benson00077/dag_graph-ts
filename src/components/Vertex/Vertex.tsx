@@ -8,12 +8,13 @@ import Rename from "./Rename";
 
 export default function Vertex(props: {
   name: string;
+  vertexValue: string | null;
   arrowStyleOpt: arrowStyle;
   location: [number, number];
   forwardedRef: React.RefObject<HTMLDivElement>;
   forwardedArrowsRefs: RefsArrows;
 }) {
-  const { name, arrowStyleOpt, location, forwardedRef, forwardedArrowsRefs } = props;
+  const { name, vertexValue, arrowStyleOpt, location, forwardedRef, forwardedArrowsRefs } = props;
   const [row, column] = location;
   const [topPosition, leftPosition] = [150 + 150 * row, 150 * column];
   const [topStyle, leftStyle] = [topPosition + "px", leftPosition + "px"];
@@ -62,7 +63,7 @@ export default function Vertex(props: {
         defaultClassName={`draggable-${name}`}
       >
         <S.Container posn={posn} ref={forwardedRef} id={name}>
-          <Rename initName={name} >
+          <Rename initName={vertexValue ?? name} >
             <>
               <span> {name} </span>
               <br />

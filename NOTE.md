@@ -2,14 +2,15 @@
 - [👉 About this project](#-about-this-project)
 - [👉 About dark/light theme w/ Styled Component](#-about-darklight-theme-w-styled-component)
   - [Style](#style)
-- [TypeScript in general](#typescript-in-general)
+- [👉 TypeScript in general](#-typescript-in-general)
   - [Default Props in Functional Component by TypeScript](#default-props-in-functional-component-by-typescript)
 - [👉 About Draggable](#-about-draggable)
   - [App](#app)
   - [Draggable](#draggable)
   - [DraggableCore](#draggablecore)
-  - [note](#note)
-    - [no para passed in function](#no-para-passed-in-function)
+- [👉 note](#-note)
+  - [當沒有參數傳入函數](#當沒有參數傳入函數)
+  - [React中优雅的处理doubleClick](#react中优雅的处理doubleclick)
 
 # TODO
 
@@ -20,7 +21,7 @@
   - 處理 click / double click 兩者，利用可取消的 Promise
 - ⭕delete vertex (maybe hover over trash can icon) -- instance of class 造成 uncontorlled component 
   - 封裝在 dagContext 內，並新增 update state 通知 React dag 內部已經修改
-- bar select different arrows style
+- ⭕bar select different arrows style
 
 # 👉 About this project
 
@@ -39,7 +40,7 @@
 - import \* as S from './style' help to hightlight styled component
 - data-attribute: see Arrow.tsx & [here](https://stackoverflow.com/a/44569018/16124226)
 
-# TypeScript in general
+# 👉 TypeScript in general
 
 ## Default Props in Functional Component by TypeScript
 
@@ -97,6 +98,9 @@
   - shouldUpdate: 
 - useEffect: 實現事件監聽 ❓ 還是沒很懂 useEffect 內 add / remove EventListener 的機制 
 
-## note
-### no para passed in function 
+# 👉 note
+## 當沒有參數傳入函數
 [see here](https://stackoverflow.com/questions/11107823/what-happens-if-i-dont-pass-a-parameter-in-a-javascript-function)
+
+## React中优雅的处理doubleClick
+[here](https://segmentfault.com/a/1190000020057512)
