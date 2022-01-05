@@ -45,10 +45,17 @@ const globalStyle = createGlobalStyle`
     position: absolute;
     right: 1rem;
     top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     h1 {
       font-size: 1.5rem; //3.375rem;
       color: ${( {theme}: GlobalThemeProps ) => theme.text}
+    }
+
+    & > a svg {
+      color: ${( {theme}: GlobalThemeProps ) => theme.text};
     }
   }
 

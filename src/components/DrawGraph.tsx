@@ -39,9 +39,9 @@ export default function DrawGraph({ dag, topSorted }: DrawGraphProps) {
   return (
     <>
       <p className="instructions">
-        Drag vertex
+        Drag items
         <br/>
-        Double click vertex to change title / name
+        Double click items to change title / name
       </p>
       <div className="graph-wrapper" >
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">

@@ -64,12 +64,13 @@ export const DagContextProvider = ({ setlocalStorage, children }: DagContextProv
     if (prevDagData === null || prevDagData === "null" || prevDagData === '') return
     const map : dagMapLocalStorage = JSON.parse(prevDagData)
     for (let [name, value] of Object.entries(map)) {
+      dag.map(name, map[name].value)
       value.incomingNames.forEach((incomingName) => {
         dag.addEdge(incomingName, name)
-        dag.map(name, map[name].value)
       })
     }
     dag.giveRank()
+    console.log(dag)
     setUpdate(!update)
   }
 

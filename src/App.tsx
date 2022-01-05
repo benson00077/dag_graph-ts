@@ -9,6 +9,8 @@ import { DagContextProvider } from "./components/contexts/DagContext";
 import GraphMiddleWare from './components/GraphMiddleWare';
 import { useDagStorage } from './components/hooks/useDagStorage';
 
+import { FaGithub } from 'react-icons/fa'
+
 function App() {
 
   const { theme, themeToggler } = useThemeMode();
@@ -23,6 +25,9 @@ function App() {
         <div>
           <h1>{theme}</h1>
         </div>
+        <a href="https://github.com/benson00077/dag_graph-ts" rel="noopener noreferrer" target="_blank">
+          <FaGithub style={{ height: "25px", width: "25px", opacity: "0.5" }}></FaGithub>
+        </a>
       </div>
 
       <DagContextProvider setlocalStorage={setlocalStorage}>

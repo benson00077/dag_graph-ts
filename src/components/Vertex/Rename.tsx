@@ -9,8 +9,8 @@ type RenameProps = {
 
 function Rename({ initName, children }: RenameProps) {
 
-  const [value, setValue] = useState(initName)
   const [dag, setDag] = useContext(DagContext)
+  const [value, setValue] = useState(dag.vertices[initName].value ?? initName)
   const formInputField = useRef<HTMLInputElement>(null)
   const onClick = () => {}
   const onDoubleClick = () => { 
