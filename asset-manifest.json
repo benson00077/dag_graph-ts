@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/dag_graph-ts/static/js/main.b850b12c.chunk.js",
-    "main.js.map": "/dag_graph-ts/static/js/main.b850b12c.chunk.js.map",
+    "main.js": "/dag_graph-ts/static/js/main.3a379a32.chunk.js",
+    "main.js.map": "/dag_graph-ts/static/js/main.3a379a32.chunk.js.map",
     "runtime-main.js": "/dag_graph-ts/static/js/runtime-main.ce11f74d.js",
     "runtime-main.js.map": "/dag_graph-ts/static/js/runtime-main.ce11f74d.js.map",
-    "static/js/2.29a2eebc.chunk.js": "/dag_graph-ts/static/js/2.29a2eebc.chunk.js",
-    "static/js/2.29a2eebc.chunk.js.map": "/dag_graph-ts/static/js/2.29a2eebc.chunk.js.map",
+    "static/js/2.e1f9c685.chunk.js": "/dag_graph-ts/static/js/2.e1f9c685.chunk.js",
+    "static/js/2.e1f9c685.chunk.js.map": "/dag_graph-ts/static/js/2.e1f9c685.chunk.js.map",
     "static/js/3.40e26a40.chunk.js": "/dag_graph-ts/static/js/3.40e26a40.chunk.js",
     "static/js/3.40e26a40.chunk.js.map": "/dag_graph-ts/static/js/3.40e26a40.chunk.js.map",
     "index.html": "/dag_graph-ts/index.html",
-    "static/js/2.29a2eebc.chunk.js.LICENSE.txt": "/dag_graph-ts/static/js/2.29a2eebc.chunk.js.LICENSE.txt"
+    "static/js/2.e1f9c685.chunk.js.LICENSE.txt": "/dag_graph-ts/static/js/2.e1f9c685.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ce11f74d.js",
-    "static/js/2.29a2eebc.chunk.js",
-    "static/js/main.b850b12c.chunk.js"
+    "static/js/2.e1f9c685.chunk.js",
+    "static/js/main.3a379a32.chunk.js"
   ]
 }
