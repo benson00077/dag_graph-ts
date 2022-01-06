@@ -25,7 +25,7 @@ function App() {
         <div>
           <h1>{theme}</h1>
         </div>
-        <a href="https://github.com/benson00077/dag_graph-ts" rel="noopener noreferrer" target="_blank">
+        <a title="repo URL" href="https://github.com/benson00077/dag_graph-ts" rel="noopener noreferrer" target="_blank">
           <FaGithub style={{ height: "25px", width: "25px", opacity: "0.5" }}></FaGithub>
         </a>
       </div>

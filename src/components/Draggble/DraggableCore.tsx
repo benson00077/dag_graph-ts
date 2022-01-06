@@ -53,8 +53,8 @@ export default function DraggableCore(props: DraggableCoreProps) {
 
     // Call event handler. If it returns explicit false, cancel.
     log('calling', args.onStart)
-    const shouldUpdate = args.onStart(e, coreEvent) 
-    if (shouldUpdate === false) return;
+    const shouldStart = args.onStart(e, coreEvent) 
+    if (shouldStart === false) return;
 
     // Add a style to the body to disable user-select. This prevents text from
     // being selected all over the page.

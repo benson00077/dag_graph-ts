@@ -38,7 +38,7 @@ export function removeEvent (ele: Node, event: string, handler: (event: any) => 
   ele.removeEventListener(event, handler, options)
 }
 
-// Handle ref, access controll ref in useEffect or ref would be default (null)
+// Handle forwarded ref, access controlled ref in useEffect or ref would be default (null)
 // In DraggableCore.tsx 
 export function withControlledNodeRef(node: HTMLDivElement, handler: (event: any, node: HTMLDivElement) => void) {
   return function eventHandler(event: any) {

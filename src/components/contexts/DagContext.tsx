@@ -70,7 +70,6 @@ export const DagContextProvider = ({ setlocalStorage, children }: DagContextProv
       })
     }
     dag.giveRank()
-    console.log(dag)
     setUpdate(!update)
   }
 
