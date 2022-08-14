@@ -1,8 +1,8 @@
-import { createGlobalStyle, withTheme } from "styled-components";
-import { ThemeProps } from "./themes";
+import { createGlobalStyle, withTheme } from 'styled-components'
+import { ThemeProps } from './themes'
 
 type GlobalThemeProps = {
-  theme: ThemeProps;
+  theme: ThemeProps
 }
 
 const globalStyle = createGlobalStyle`
@@ -38,7 +38,7 @@ const globalStyle = createGlobalStyle`
     height: 100vh;
     width: 85vw;
     margin: 0 auto;
-    background-color: ${( {theme}: GlobalThemeProps) => theme.background};
+    background-color: ${({ theme }: GlobalThemeProps) => theme.background};
   }
 
   .toggler {
@@ -51,17 +51,17 @@ const globalStyle = createGlobalStyle`
 
     h1 {
       font-size: 1.5rem; //3.375rem;
-      color: ${( {theme}: GlobalThemeProps ) => theme.text}
+      color: ${({ theme }: GlobalThemeProps) => theme.text}
     }
 
     & > a svg {
-      color: ${( {theme}: GlobalThemeProps ) => theme.text};
+      color: ${({ theme }: GlobalThemeProps) => theme.text};
     }
   }
 
   .instructions {
     padding: 1rem 0 1rem 0;
-    color: ${( {theme}: GlobalThemeProps ) => theme.text}
+    color: ${({ theme }: GlobalThemeProps) => theme.text}
   }
 
   .graph-wrapper {
@@ -76,11 +76,11 @@ const globalStyle = createGlobalStyle`
       width: 100%;
     
       marker#arrowhead {
-        fill: ${( {theme} ) => theme.text}
+        fill: ${({ theme }) => theme.text}
       }
 
       & g {
-        stroke: ${( {theme} ) => theme.text}
+        stroke: ${({ theme }) => theme.text}
       }
     }
   }

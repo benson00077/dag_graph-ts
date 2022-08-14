@@ -1,10 +1,9 @@
 import Dag from './dagClass'
 import { IdagData, Vertex } from './types'
 
-
 export default class Graph extends Dag implements IdagData {
   rank: {
-    [name: string] : number
+    [name: string]: number
   }
   topSorted: string[]
 
@@ -28,7 +27,7 @@ export default class Graph extends Dag implements IdagData {
     let ranking = 0
     leafToRoot.forEach((name, i) => {
       let incomingNames = [...this.vertices[name].incomingNames]
-      let nextName = leafToRoot[i+1]
+      let nextName = leafToRoot[i + 1]
       // when nextName is same ranking
       if (!incomingNames.includes(nextName)) {
         this.rank[name] = ranking
@@ -44,15 +43,15 @@ export default class Graph extends Dag implements IdagData {
   }
 
   private deleteFromIncomingArr(deleteName: string, vertex: Vertex) {
-    vertex.incomingNames = vertex.incomingNames.filter(item => item !== deleteName)
+    vertex.incomingNames = vertex.incomingNames.filter((item) => item !== deleteName)
   }
-  
+
   private deleteFromIncoming(deleteNameKey: string, vertex: Vertex) {
     delete vertex.incoming[deleteNameKey]
   }
 
   private getOutgoingMap() {
-    let outGoingMap:{[name: string]: string[]} = {}
+    let outGoingMap: { [name: string]: string[] } = {}
     for (const [name, vertex] of Object.entries(this.vertices)) {
       for (let from of vertex.incomingNames) {
         if (outGoingMap[from] !== undefined) {
@@ -64,7 +63,7 @@ export default class Graph extends Dag implements IdagData {
         } else if (outGoingMap[from] === undefined) {
           outGoingMap[from] = [name]
         }
-      } 
+      }
     }
     return outGoingMap
   }
@@ -76,7 +75,6 @@ export default class Graph extends Dag implements IdagData {
   }
 
   delete(deleteName: string) {
-    
     // Delete edge: whoever's has only outgoing and it is deleName
     let outGoingMap = this.getOutgoingMap()
     for (const [vertexName, outgoingList] of Object.entries(outGoingMap)) {
@@ -84,7 +82,7 @@ export default class Graph extends Dag implements IdagData {
         this.vertices[vertexName].hasOutgoing = false
       }
     }
-  
+
     // Delete edge: whoever's 檢查 del 的下家 刪除掉     del 這個 incomming
     for (const [vertexName, vertex] of Object.entries(this.vertices)) {
       this.deleteFromIncomingArr(deleteName, vertex)
@@ -94,13 +92,13 @@ export default class Graph extends Dag implements IdagData {
     // Delete Vertex
     delete this.vertices[deleteName]
 
-    // Delte from names 
+    // Delte from names
     this.names = this.names.filter((name) => {
       return name !== deleteName
     })
 
     // update topSorted and rank
-    this.giveRank();
+    this.giveRank()
   }
 
   changeName() {

@@ -1,10 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 interface Itip {
   show: boolean
 }
-
-
 
 export const Icon = styled.span`
   position: absolute;
@@ -22,11 +20,11 @@ export const Icon = styled.span`
     transition: all 0.1s linear;
     opacity: 1;
   }
-  
+
   svg {
     color: ${({ theme }) => theme.text};
   }
-`;
+`
 
 export const toolTip = styled.div<Itip>`
   position: absolute;
@@ -39,17 +37,17 @@ export const toolTip = styled.div<Itip>`
     align-items: center;
     position: absolute;
     width: 30rem;
-    opacity:  ${(props) => props.show ? `1` : `0`};
+    opacity: ${(props) => (props.show ? `1` : `0`)};
     border: solid 1px;
     border-radius: 12px;
     padding: 12px 0 12px 0;
 
-      /*
+    /*
       To Prevent user selectin inside the drag source
       */
-      user-select: none;
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      -ms-user-select: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
   }
 `

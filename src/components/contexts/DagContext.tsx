@@ -1,46 +1,40 @@
-import React, { useState, useEffect } from "react";
-import Graph from "../../dag/graphClass"
-import { input } from "../../ts/types/app_types";
-import inputParser from '../utils/inputParser';
+import React, { useState, useEffect } from 'react'
+import Graph from '../../dag/graphClass'
+import { input } from '../../ts/types/app_types'
+import inputParser from '../utils/inputParser'
 
 type setDag = {
-  createVertex: (input: input) => boolean,
-  deleteVertex: (name: string) => void,
-  appendVertexValue: (name: string, value: string) => void,
-  resetDag: () => void,
+  createVertex: (input: input) => boolean
+  deleteVertex: (name: string) => void
+  appendVertexValue: (name: string, value: string) => void
+  resetDag: () => void
 }
 type dagCtx = [Graph, setDag, boolean, React.Dispatch<React.SetStateAction<boolean>> | (() => {})]
 
 type dagMapLocalStorage = {
-  [name: string] : {
-    rank : number,
-    value: string | null,
-    incomingNames : string[],
+  [name: string]: {
+    rank: number
+    value: string | null
+    incomingNames: string[]
   }
 }
 
-export const DagContext = React.createContext<dagCtx>([
-  {} as Graph,
-  {} as setDag,
-  false,
-  () => { }
-]);
+export const DagContext = React.createContext<dagCtx>([{} as Graph, {} as setDag, false, () => {}])
 
 type DagContextProviderProps = {
-  setlocalStorage: (dagData: string) => void,
+  setlocalStorage: (dagData: string) => void
   children: React.ReactNode
 }
 
 /**
- *  Encapsulate CRUD on DAG in Context API because 
+ *  Encapsulate CRUD on DAG in Context API because
  *   1. Methods of CRUD on DAG is within this DAG object, instead of React. React needs to know if any updates on this obj.
  *   2. CRUD on DAG is coupling w/ window.localStorage, which is not known by React either.
  */
 export const DagContextProvider = ({ setlocalStorage, children }: DagContextProviderProps) => {
-
-  /** 
+  /**
    *  Since we use dag class's method to update vertex vlaue,
-   *  React would not know the update of dag unless having a update state 
+   *  React would not know the update of dag unless having a update state
    *  to inform react to rerender CreateVertex.tsx where we import dag data
    */
   const [update, setUpdate] = useState(false)
@@ -53,12 +47,12 @@ export const DagContextProvider = ({ setlocalStorage, children }: DagContextProv
   }
 
   const updateDagLocalStorage = (dag: Graph) => {
-    const map : dagMapLocalStorage = {}
+    const map: dagMapLocalStorage = {}
     dag.names.forEach((name) => {
       map[name] = {
         rank: dag.rank[name],
         value: dag.vertices[name].value ?? null,
-        incomingNames: dag.vertices[name].incomingNames
+        incomingNames: dag.vertices[name].incomingNames,
       }
     })
     const mapStr = JSON.stringify(map)
@@ -66,9 +60,9 @@ export const DagContextProvider = ({ setlocalStorage, children }: DagContextProv
   }
 
   const repaintPrevDag = () => {
-    const prevDagData = window.localStorage.getItem("dagData")
-    if (prevDagData === null || prevDagData === "null" || prevDagData === '') return
-    const map : dagMapLocalStorage = JSON.parse(prevDagData)
+    const prevDagData = window.localStorage.getItem('dagData')
+    if (prevDagData === null || prevDagData === 'null' || prevDagData === '') return
+    const map: dagMapLocalStorage = JSON.parse(prevDagData)
     for (let [name, value] of Object.entries(map)) {
       dag.map(name, map[name].value)
       value.incomingNames.forEach((incomingName) => {
@@ -127,9 +121,5 @@ export const DagContextProvider = ({ setlocalStorage, children }: DagContextProv
     repaintPrevDag()
   }, [])
 
-  return (
-    <DagContext.Provider value={[dag, setDag, update, setUpdate]}>
-      {children}
-    </DagContext.Provider>
-  )
+  return <DagContext.Provider value={[dag, setDag, update, setUpdate]}>{children}</DagContext.Provider>
 }

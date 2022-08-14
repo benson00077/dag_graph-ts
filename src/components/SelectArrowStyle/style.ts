@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const dropDownHeight = '4'
 const optionsHeight = '10'
 const unit = 'rem'
 
 export const Dropdown = styled.div`
-  color: ${( {theme}) => theme.text};
+  color: ${({ theme }) => theme.text};
   border: solid;
   border-radius: 5px;
   height: ${dropDownHeight + unit};
@@ -14,11 +14,11 @@ export const Dropdown = styled.div`
   left: 1rem;
   bottom: 1rem;
   /* glassmorphism */
-  background: ${( {theme} ) => theme.select};
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 4px );
+  background: ${({ theme }) => theme.select};
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
   border-radius: 10px;
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  border: 1px solid rgba(255, 255, 255, 0.18);
 
   &:hover {
     cursor: pointer;
@@ -36,14 +36,14 @@ export const Dropdown = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    
+
     div {
-      background-color: ${( {theme} ) => theme.option};
+      background-color: ${({ theme }) => theme.option};
       /* glassmorphism */
-      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-      backdrop-filter: blur( 4px );
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(4px);
       border-radius: 10px;
-      border: 1px solid rgba( 255, 255, 255, 0.18 );
+      border: 1px solid rgba(255, 255, 255, 0.18);
       margin: 0.5rem;
 
       &:hover {
@@ -57,16 +57,16 @@ export const Dropdown = styled.div`
       /* TODO: svg path not align with viewpoint */
       svg {
         marker#arrowhead {
-          fill: ${( {theme} ) => theme.text}
+          fill: ${({ theme }) => theme.text};
         }
-        
+
         & g {
-          stroke: ${( {theme} ) => theme.text}
+          stroke: ${({ theme }) => theme.text};
         }
       }
     }
   }
-  
+
   .collapseAria {
     transform: translateX(-2rem);
     width: 0;
@@ -75,7 +75,7 @@ export const Dropdown = styled.div`
     transition-duration: 0.5s, 0.5s, 0.5s;
     transition-timing-function: linear, ease-out, linear;
   }
-  
+
   .expandAria {
     transform: translateX(0);
     width: 25vw;

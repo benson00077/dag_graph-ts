@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { createCSSTransform } from "./domFns";
-import { canDragX, canDragY, createDraggableData } from "./positionFns";
-import { AllPropsRequired, DraggableData, DraggableProps  } from "./types";
-import DraggableCore from "./DraggableCore";
-
+import React, { useState } from 'react'
+import { createCSSTransform } from './domFns'
+import { canDragX, canDragY, createDraggableData } from './positionFns'
+import { AllPropsRequired, DraggableData, DraggableProps } from './types'
+import DraggableCore from './DraggableCore'
 
 export default function Draggable(props: DraggableProps) {
-
   // Default Props
   const args: AllPropsRequired<DraggableProps> = {
     ...props,
@@ -23,20 +21,20 @@ export default function Draggable(props: DraggableProps) {
     defaultClassName: props.defaultClassName !== undefined ? props.defaultClassName : 'draggable',
     defaultClassNameDragging: props.defaultClassNameDragging ?? 'draggable-dragging',
     defaultClassNameDragged: props.defaultClassNameDragged ?? 'draggable-dragged',
-    defaultPosition: props.defaultPosition !== undefined ? props.defaultPosition : {x: 0, y: 0},
-    positionOffset: props.positionOffset !== undefined ? props.positionOffset : {x: '0%', y: '0%'},
-    position: props.position !== undefined ? props.position : {x: 0, y: 0},
+    defaultPosition: props.defaultPosition !== undefined ? props.defaultPosition : { x: 0, y: 0 },
+    positionOffset: props.positionOffset !== undefined ? props.positionOffset : { x: '0%', y: '0%' },
+    position: props.position !== undefined ? props.position : { x: 0, y: 0 },
     axis: props.axis !== undefined ? props.axis : 'both',
   }
 
-  const [ state, setState ] = useState({
+  const [state, setState] = useState({
     dragging: false,
     dragged: false,
     // Current transform x and y
-    x: props.defaultPosition?.x || props.position?.x || args.position.x ,
-    y: props.defaultPosition?.y || props.position?.y || args.position.y ,
+    x: props.defaultPosition?.x || props.position?.x || args.position.x,
+    y: props.defaultPosition?.y || props.position?.y || args.position.y,
     //prevPropsPosition: {...position},
-  });
+  })
 
   // TODO: onDrag to change state and thus style would change
   // this will insert and change prop.onDrag  and pass to DraggableCore
@@ -44,9 +42,9 @@ export default function Draggable(props: DraggableProps) {
     // Shourt-circuit if user's callback killed it.
     const shouldStart = args.onStart(e, createDraggableData(state, args.scale, coreData))
     // Kills start event on core as well, so move handlers are never bound
-    if (shouldStart === false) return false;
+    if (shouldStart === false) return false
 
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       dragging: true,
       dragged: true,
@@ -54,36 +52,34 @@ export default function Draggable(props: DraggableProps) {
   }
 
   function onDrag(e: MouseEvent, coreData: DraggableData) {
-
     if (!state.dragging) return false
-    const uiData = createDraggableData(state, args.scale, coreData);
+    const uiData = createDraggableData(state, args.scale, coreData)
 
     const newState = {
-      x: uiData.x, 
+      x: uiData.x,
       y: uiData.y,
     }
 
     // Short-circuit if user's callback killed it.
-    const shouldUpdate = args.onDrag(e, uiData);
-    if (shouldUpdate === false) return false;
+    const shouldUpdate = args.onDrag(e, uiData)
+    if (shouldUpdate === false) return false
 
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
-      ...newState
+      ...newState,
     }))
   }
 
   function onDragStop(e: MouseEvent, coreData: DraggableData) {
-    
     if (!state.dragging) return
 
     // Shourt-circuit if user's callback killed it.
-    const shouldContinue = args.onStop(e, createDraggableData(state, args.scale, coreData));
-    if (shouldContinue === false) return false;
-    
+    const shouldContinue = args.onStop(e, createDraggableData(state, args.scale, coreData))
+    if (shouldContinue === false) return false
+
     const newState: {
-      dragging: boolean, 
-      x?: number,
+      dragging: boolean
+      x?: number
       y?: number
     } = {
       dragging: false,
@@ -94,14 +90,14 @@ export default function Draggable(props: DraggableProps) {
     // revert back to the old position. We expect a handler on `onDragStop`, at the least.
     const controlled = Boolean(props.position !== undefined)
     if (controlled) {
-      const {x, y} = args.position
-      newState.x = x;
+      const { x, y } = args.position
+      newState.x = x
       newState.y = y
     }
-    
-    setState(prev => ({
-      ...prev, 
-      ...newState
+
+    setState((prev) => ({
+      ...prev,
+      ...newState,
     }))
   }
 
@@ -109,16 +105,16 @@ export default function Draggable(props: DraggableProps) {
   // If this is controlled, we don't want to move it -- unless it's dragging.
   const controlled = Boolean(props.position !== undefined)
   const draggable = !controlled || state.dragging
-  let validPosition = props.position || props.defaultPosition;
+  let validPosition = props.position || props.defaultPosition
   if (validPosition === undefined) validPosition = args.position
 
   const transformOpts = {
-    // props when draggable only horizontally or vertically 
+    // props when draggable only horizontally or vertically
     x: canDragX(args.axis) && draggable ? state.x : validPosition.x,
     y: canDragY(args.axis) && draggable ? state.y : validPosition.y,
   }
-  
-  const style = createCSSTransform(transformOpts, args.positionOffset);
+
+  const style = createCSSTransform(transformOpts, args.positionOffset)
 
   // Mark w/ class while dragging
   let className = args.defaultClassName
@@ -127,16 +123,11 @@ export default function Draggable(props: DraggableProps) {
   if (args.children.props.className) className += ' ' + args.children.props.className
 
   return (
-    <DraggableCore
-      onStart={onDragStart}
-      onDrag={onDrag}
-      onStop={onDragStop}
-      forwardedRef={args.forwardedRef}
-    >
+    <DraggableCore onStart={onDragStart} onDrag={onDrag} onStop={onDragStop} forwardedRef={args.forwardedRef}>
       {React.cloneElement(React.Children.only(args.children), {
         className: className,
         style: { ...args.children.props.style, ...style },
       })}
     </DraggableCore>
-  );
+  )
 }

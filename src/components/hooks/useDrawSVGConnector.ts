@@ -1,14 +1,19 @@
-import { arrowStyle, RefsArrows } from "../../ts/types/app_types"
-import { SvgPath, SvgPathEnds, getNewCurvesPathCommnadAfterDrag, getNewStraightPathCommandAfterDrag } from "../utils/svgPathHandler"
+import { arrowStyle, RefsArrows } from '../../ts/types/app_types'
+import {
+  SvgPath,
+  SvgPathEnds,
+  getNewCurvesPathCommnadAfterDrag,
+  getNewStraightPathCommandAfterDrag,
+} from '../utils/svgPathHandler'
 
 export function useDrawConnectorInitial(styleOpt: arrowStyle) {
   function drawConnectorInitial(
-    divs: {from: HTMLDivElement, to: HTMLDivElement},
+    divs: { from: HTMLDivElement; to: HTMLDivElement },
     arrowRef: SVGPathElement,
     translateMap = {
       divFrom: { x: 0, y: 0 },
       divTo: { x: 0, y: 0 },
-    } // TODO: btn switch btw defualt position <-> dragged positin
+    }, // TODO: btn switch btw defualt position <-> dragged positin
   ) {
     const path = new SvgPath(arrowRef)
     const ends = new SvgPathEnds(divs)
@@ -18,33 +23,26 @@ export function useDrawConnectorInitial(styleOpt: arrowStyle) {
     path.mount(pathCommand)
   }
 
-  return ({ drawConnectorInitial })
+  return { drawConnectorInitial }
 }
 
-
-
 export function useDrawConnectorDynamic(styleOpt: arrowStyle) {
+  let defaultPathMemoizer: { [pathId: string]: string } = {}
 
-  let defaultPathMemoizer: {[pathId: string]: string} = {}
-  
-  function drawConnectorDynamic(
-    arrowsRef: RefsArrows,
-    vertexName: string,
-    translate: {x: number, y:number}
-  ) {
-    //TODO   
+  function drawConnectorDynamic(arrowsRef: RefsArrows, vertexName: string, translate: { x: number; y: number }) {
+    //TODO
     arrowsRef.forEach((arrowRef, i) => {
       const pathRef = arrowRef.current
-      let indicator: "FROM" | "TO"
-      if (pathRef?.getAttribute("data-vertex_from") === vertexName ) {
-        indicator = "FROM" 
-      } else if (pathRef?.getAttribute("data-vertex_to") === vertexName ) {
-        indicator = "TO"
-      } else throw new Error("SVGPathElemet missing attrivute data-vertex_from and data-vertex_to")
+      let indicator: 'FROM' | 'TO'
+      if (pathRef?.getAttribute('data-vertex_from') === vertexName) {
+        indicator = 'FROM'
+      } else if (pathRef?.getAttribute('data-vertex_to') === vertexName) {
+        indicator = 'TO'
+      } else throw new Error('SVGPathElemet missing attrivute data-vertex_from and data-vertex_to')
 
       const path = new SvgPath(pathRef)
-      
-      if (!path.command) throw new Error ("path.command not found")
+
+      if (!path.command) throw new Error('path.command not found')
       if (!defaultPathMemoizer[pathRef.id]) {
         defaultPathMemoizer[pathRef.id] = path.command
       }
@@ -60,5 +58,5 @@ export function useDrawConnectorDynamic(styleOpt: arrowStyle) {
     })
   }
 
-  return ({ drawConnectorDynamic })
+  return { drawConnectorDynamic }
 }

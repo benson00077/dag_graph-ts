@@ -1,16 +1,16 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 interface IPosn {
   posn: {
-    position: string,
-    top?: string,
-    left?: string,
+    position: string
+    top?: string
+    left?: string
   }
 }
 
 export const Container = styled.div<IPosn>`
-  color: ${( {theme}) => theme.text};
-  background-color:${( {theme}) => theme.vertexbg};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.vertexbg};
   text-align: center;
   padding: 10px;
   min-width: 100px;
@@ -18,14 +18,14 @@ export const Container = styled.div<IPosn>`
   border-radius: 15px;
 
   position: absolute;
-  top: ${( {posn} ) => posn.top};
-  left: ${( {posn} ) => posn.left};
+  top: ${({ posn }) => posn.top};
+  left: ${({ posn }) => posn.left};
 
   &:hover {
     cursor: grab;
   }
 
-  &.draggable-dragging{
+  &.draggable-dragging {
     cursor: grabbing;
   }
 
@@ -54,9 +54,9 @@ export const Container = styled.div<IPosn>`
   /*
       vertex's value could changed by submitting form
   */
-  form input{
-    color: ${( {theme}) => theme.text};
-    background-color:${( {theme}) => theme.vertexbg};
+  form input {
+    color: ${({ theme }) => theme.text};
+    background-color: ${({ theme }) => theme.vertexbg};
     border: 0;
     border-radius: 15px;
     outline: 0;
@@ -65,7 +65,7 @@ export const Container = styled.div<IPosn>`
     font-size: 1.08rem;
     text-align: center;
 
-    &:focus{
+    &:focus {
       background-color: rgb(156 163 175);
     }
   }

@@ -1,24 +1,24 @@
 export type vertexValue = null | string
 export type Vertex = {
-  name: string;
+  name: string
   incoming: {
-    [name: string] : Vertex
-  };
-  incomingNames: string[];
-  hasOutgoing: boolean;
-  value: null | string;
+    [name: string]: Vertex
+  }
+  incomingNames: string[]
+  hasOutgoing: boolean
+  value: null | string
 }
 export type Vertices = {
-  [name: string] : Vertex
+  [name: string]: Vertex
 }
 
 export interface IdagData {
-  names: string[];
+  names: string[]
   vertices: {
     [name: string]: Vertex
   }
   rank?: {
-    [name: string] : number
+    [name: string]: number
   }
   topSorted?: string[]
 }

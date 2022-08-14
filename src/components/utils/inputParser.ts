@@ -1,4 +1,4 @@
-import { input, dagEdagesInput } from "../../ts/types/app_types";
+import { input, dagEdagesInput } from '../../ts/types/app_types'
 
 // enum Delimter {
 //   Comma = ",",
@@ -11,20 +11,20 @@ import { input, dagEdagesInput } from "../../ts/types/app_types";
 // }
 
 export default function inputParser(verticesInput: input) {
-  let { incomming, vertex, outgoing } = verticesInput;
-  let [incommingArr, outgoingArr] = [seperate(incomming.trim()), seperate(outgoing.trim())];
-  
+  let { incomming, vertex, outgoing } = verticesInput
+  let [incommingArr, outgoingArr] = [seperate(incomming.trim()), seperate(outgoing.trim())]
+
   let result: dagEdagesInput = {
     incomming: arrTrim(incommingArr),
     vertex: vertex.trim(),
     outgoing: arrTrim(outgoingArr),
-  };
+  }
 
   return result
 }
 
 function seperate(str: string) {
-  return str.split(/[\s,]+/);
+  return str.split(/[\s,]+/)
 }
 
 function arrTrim(arr: string[]) {

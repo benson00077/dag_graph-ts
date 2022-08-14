@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { addEvent, addUserSelectStyles, removeEvent, removeUserSelectStyles, withControlledNodeRef } from "./domFns";
-import log from "./log";
-import { getControlPosition, createCoreData } from "./positionFns";
-import { AllPropsRequired, DraggableCoreProps } from "./types";
+import React, { useState, useEffect } from 'react'
+import { addEvent, addUserSelectStyles, removeEvent, removeUserSelectStyles, withControlledNodeRef } from './domFns'
+import log from './log'
+import { getControlPosition, createCoreData } from './positionFns'
+import { AllPropsRequired, DraggableCoreProps } from './types'
 
 const eventsFor = {
   touch: {
-    start: "touchstart",
-    move: "touchmove",
-    stop: "touchend",
+    start: 'touchstart',
+    move: 'touchmove',
+    stop: 'touchend',
   },
   mouse: {
-    start: "mousedown",
-    move: "mousemove",
-    stop: "mouseup",
+    start: 'mousedown',
+    move: 'mousemove',
+    stop: 'mouseup',
   },
-};
+}
 
-let dragEventFor = eventsFor.mouse;
+let dragEventFor = eventsFor.mouse
 
 export default function DraggableCore(props: DraggableCoreProps) {
-
   //Default Props
   const args: AllPropsRequired<DraggableCoreProps> = {
     ...props,
@@ -31,48 +30,45 @@ export default function DraggableCore(props: DraggableCoreProps) {
     onDrag: props.onDrag ?? (() => {}),
     onStop: props.onStop ?? (() => {}),
     onMouseDown: props.onMouseDown ?? (() => {}),
-    scale: props.scale ?? 1
+    scale: props.scale ?? 1,
   }
-
 
   const [state, setState] = useState({
     dragging: false,
     lastX: NaN,
     lastY: NaN,
-  });
-
-
+  })
 
   function handleDragStart(e: MouseEvent, thisNode: HTMLDivElement) {
     const ownerDocument = thisNode.ownerDocument
-    const position = getControlPosition(e, thisNode);
-    const { x, y } = position;
+    const position = getControlPosition(e, thisNode)
+    const { x, y } = position
     const coreEvent = createCoreData(state, x, y, thisNode)
 
-    log('DraggableCore: handleDragStart: %j', coreEvent);
+    log('DraggableCore: handleDragStart: %j', coreEvent)
 
     // Call event handler. If it returns explicit false, cancel.
     log('calling', args.onStart)
-    const shouldStart = args.onStart(e, coreEvent) 
-    if (shouldStart === false) return;
+    const shouldStart = args.onStart(e, coreEvent)
+    if (shouldStart === false) return
 
     // Add a style to the body to disable user-select. This prevents text from
     // being selected all over the page.
-    if (args.enableUserSelectHack) addUserSelectStyles(ownerDocument);
+    if (args.enableUserSelectHack) addUserSelectStyles(ownerDocument)
 
     setState({
-      dragging: true, 
+      dragging: true,
       lastX: x,
-      lastY: y
+      lastY: y,
     })
   }
 
-  function handleDrag (e: MouseEvent) {
+  function handleDrag(e: MouseEvent) {
     // Get the current drag point from the event. This is used as the offset.
     const thisNode = args.forwardedRef.current
-    if(!thisNode) throw new Error("forwarded reference of vertex is null")
+    if (!thisNode) throw new Error('forwarded reference of vertex is null')
     const position = getControlPosition(e, thisNode)
-    let { x, y } = position;
+    let { x, y } = position
     // Create an event object w/ all the data parents need to make a decision here.
     const coreEvent = createCoreData(state, x, y, thisNode)
 
@@ -80,45 +76,43 @@ export default function DraggableCore(props: DraggableCoreProps) {
 
     // Call event handler. If it returns explicit falase, cancel. -> see example "I don't want to be drag"
     const shouldUpdate = args.onDrag(e, coreEvent)
-    if (shouldUpdate === false ) {
+    if (shouldUpdate === false) {
       try {
         handleDragStop(new MouseEvent('mouseup'))
       } catch (err) {
         // Old browers
-        const event = ((document.createEvent('MouseEvents')))
-        event.initMouseEvent('mouseup', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-        handleDragStop(event);
+        const event = document.createEvent('MouseEvents')
+        event.initMouseEvent('mouseup', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+        handleDragStop(event)
       }
       return
     }
 
-    setState((prev) =>({
+    setState((prev) => ({
       ...prev,
-      lastX: x, 
-      lastY: y
+      lastX: x,
+      lastY: y,
     }))
-
   }
 
   function handleDragStop(e: MouseEvent) {
-    
-    if (!state.dragging) return; // return when re-render after setState in this function.
+    if (!state.dragging) return // return when re-render after setState in this function.
 
-    const thisNode = args.forwardedRef.current;
-    if(!thisNode) throw new Error("forwarded reference of vertex is null")
+    const thisNode = args.forwardedRef.current
+    if (!thisNode) throw new Error('forwarded reference of vertex is null')
     const ownerDocument = thisNode.ownerDocument
-    const position = getControlPosition(e, thisNode);
-    const {x, y} = position;
-    const coreEvent = createCoreData(state, x, y, thisNode);
+    const position = getControlPosition(e, thisNode)
+    const { x, y } = position
+    const coreEvent = createCoreData(state, x, y, thisNode)
 
     // Call event handler
-    const shouldContinue = args.onStop(e, coreEvent);
-    if (shouldContinue === false ) return false;
+    const shouldContinue = args.onStop(e, coreEvent)
+    if (shouldContinue === false) return false
 
     // Remove user-select hack
     if (args.enableUserSelectHack) {
-      removeUserSelectStyles(ownerDocument);
-    };
+      removeUserSelectStyles(ownerDocument)
+    }
 
     log('DraggableCore: handleDragStop: %j', coreEvent)
 
@@ -126,27 +120,25 @@ export default function DraggableCore(props: DraggableCoreProps) {
       dragging: false,
       lastX: NaN,
       lastY: NaN,
-    });
-
+    })
   }
 
-  //TODO: onTouchStart() , onTAouchEnd(), change eventsFor 
+  //TODO: onTouchStart() , onTAouchEnd(), change eventsFor
   function onMouseDown(e: MouseEvent) {
-    dragEventFor = eventsFor.mouse;
+    dragEventFor = eventsFor.mouse
     //return handleDragStart(e);
   }
   function onMouseUp(e: MouseEvent) {
-    dragEventFor = eventsFor.mouse;
+    dragEventFor = eventsFor.mouse
     //return handleDragStop(e);
   }
-  
 
   useEffect(() => {
-    const thisNode = args.forwardedRef.current;
-    if(!thisNode) throw new Error("forwarded reference of vertex is null")
+    const thisNode = args.forwardedRef.current
+    if (!thisNode) throw new Error('forwarded reference of vertex is null')
     const ownerDocument = thisNode.ownerDocument
-    
-    addEvent(thisNode, dragEventFor.start, withControlledNodeRef(thisNode, handleDragStart), {passive: false});
+
+    addEvent(thisNode, dragEventFor.start, withControlledNodeRef(thisNode, handleDragStart), { passive: false })
     if (state.dragging) {
       // thisNode is controlled when dragging, thus no need withControlledNodeRef to wrap the handler.
       addEvent(ownerDocument, dragEventFor.move, handleDrag)
@@ -154,12 +146,12 @@ export default function DraggableCore(props: DraggableCoreProps) {
     }
 
     return () => {
-      removeEvent(thisNode, dragEventFor.start, withControlledNodeRef(thisNode, handleDragStart), {passive: false})
+      removeEvent(thisNode, dragEventFor.start, withControlledNodeRef(thisNode, handleDragStart), { passive: false })
       removeEvent(ownerDocument, dragEventFor.move, handleDrag)
       removeEvent(ownerDocument, dragEventFor.stop, handleDragStop)
       if (args.enableUserSelectHack) removeUserSelectStyles(ownerDocument)
     }
-  }, [state.dragging]);
+  }, [state.dragging])
 
   return (
     <>
@@ -169,5 +161,5 @@ export default function DraggableCore(props: DraggableCoreProps) {
       })} */}
       {args.children}
     </>
-  );
+  )
 }

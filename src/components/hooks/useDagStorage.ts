@@ -1,4 +1,4 @@
-import { useEffect, useState }  from 'react'
+import { useEffect, useState } from 'react'
 
 export const useDagStorage = () => {
   const [dagStorage, setDagStorage] = useState('')
@@ -12,6 +12,6 @@ export const useDagStorage = () => {
     const localDagStorage = window.localStorage.getItem('dagData') // could be null
     localDagStorage && setDagStorage(localDagStorage)
   })
-  
+
   return { dagStorage, setlocalStorage }
 }

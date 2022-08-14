@@ -1,10 +1,10 @@
 export interface ThemeProps {
-  background: string;
-  text: string;
-  button: string;
-  vertexbg: string;
-  select: string;
-  option: string;
+  background: string
+  text: string
+  button: string
+  vertexbg: string
+  select: string
+  option: string
 }
 
 export const darkTheme: ThemeProps = {

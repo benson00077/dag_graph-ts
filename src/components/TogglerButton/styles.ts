@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.div`
   .switch {
@@ -29,7 +29,7 @@ export const Container = styled.div`
 
   .slider:before {
     position: absolute;
-    content: "";
+    content: '';
     height: 14px;
     width: 14px;
     left: 7px;
@@ -40,14 +40,14 @@ export const Container = styled.div`
   }
 
   input:checked + .slider {
-    background-color: ${({theme}) => theme.background};
+    background-color: ${({ theme }) => theme.background};
   }
 
   input:checked + .slider:before {
     -webkit-transform: translateY(35px);
     -ms-transform: translateX(35px);
     transform: translateX(35px);
-  } 
+  }
 
   /* Rounded sliders */
   .slider.round {
@@ -57,7 +57,7 @@ export const Container = styled.div`
   .slider.round:before {
     border-radius: 50%;
   }
-`;
+`
 
 export const Icons = styled.span`
   width: 100%;
@@ -70,4 +70,4 @@ export const Icons = styled.span`
     color: ${({ theme }) => theme.text};
     z-index: 11;
   }
-`;
+`
