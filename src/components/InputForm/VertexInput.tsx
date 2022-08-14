@@ -43,13 +43,13 @@ export default function VertexInput({createVertex}: VertexInputProps) {
       <S.Vertex_input>
         <S.Form onSubmit={submitHandler}>
           <label>Incomming Note Tag</label>
-          <input name="incomming" placeholder="🡪 a, b, c ..." value={incomming} onChange={e => { setIncomming(e.target.value) }} />
+          <input name="incomming" placeholder="👉 a, b, c ..." value={incomming} onChange={e => { setIncomming(e.target.value) }} />
 
           <label>Tag Name</label>
-          <input name="vertex" value={vertex} placeholder="🡪 d (must)" onChange={e => { setVertex(e.target.value) }} />
+          <input name="vertex" value={vertex} placeholder="👉 d (must)" onChange={e => { setVertex(e.target.value) }} />
 
           <label>Outgoing Note Tag</label>
-          <input name="outgoing" value={outgoing} placeholder="🡪 e, f, g ..." onChange={e => { setOutgoing(e.target.value) }} />
+          <input name="outgoing" value={outgoing} placeholder="👉 e, f, g ..." onChange={e => { setOutgoing(e.target.value) }} />
 
           <S.Button onMouseDown={e => mouseDownEffect(e)} onMouseUp={e => mouseUpEffect(e)}>Create !</S.Button>
         </S.Form>

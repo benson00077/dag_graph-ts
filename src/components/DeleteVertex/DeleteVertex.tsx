@@ -22,7 +22,7 @@ function DeleteVertex({ deleteVertex }: DeleteVertexProps) {
       <input 
         name="vertex" 
         value={target} 
-        placeholder="🡪 a"
+        placeholder="👉 a"
         onChange={e => { setTarget(e.target.value) }} />
     </S.Form>
   )
