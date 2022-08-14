@@ -12,7 +12,10 @@ function GraphMiddleWare() {
 
   return (
     <>
+      {/* View on DAG  */}
       <DrawGraph dag={dag} topSorted={dag.topSorted} />
+      
+      {/* Controllers on DAG */}
       <VertexInput createVertex={setDag.createVertex} />
       <DeleteVertex deleteVertex={setDag.deleteVertex} />
       <ResetDag reset={setDag.resetDag}/>

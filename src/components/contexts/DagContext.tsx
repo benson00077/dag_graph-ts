@@ -31,9 +31,15 @@ type DagContextProviderProps = {
   children: React.ReactNode
 }
 
+/**
+ *  Encapsulate CRUD on DAG in Context API because 
+ *   1. Methods of CRUD on DAG is within this DAG object, instead of React. React needs to know if any updates on this obj.
+ *   2. CRUD on DAG is coupling w/ window.localStorage, which is not known by React either.
+ */
 export const DagContextProvider = ({ setlocalStorage, children }: DagContextProviderProps) => {
 
-  /** Since we use dag class's method to update vertex vlaue,
+  /** 
+   *  Since we use dag class's method to update vertex vlaue,
    *  React would not know the update of dag unless having a update state 
    *  to inform react to rerender CreateVertex.tsx where we import dag data
    */

@@ -13,7 +13,12 @@ type DrawGraphProps = {
   topSorted: string[]
 }
 
-
+/**
+ *  View on DAG. 
+ *   1. Map vertices to each UI of each
+ *   2. Define position based on topology sort order
+ *   3. Select to define svg arrows style
+ */
 export default function DrawGraph({ dag, topSorted }: DrawGraphProps) {
   
   const [positionMap, setPositionMap] = useContext(PositionContext)
