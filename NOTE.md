@@ -1,4 +1,3 @@
-- [TODO](#todo)
 - [👉 About dark/light theme w/ Styled Component](#-about-darklight-theme-w-styled-component)
   - [Style](#style)
 - [👉 TypeScript in general](#-typescript-in-general)
@@ -14,16 +13,6 @@
   - [當沒有參數傳入函數](#當沒有參數傳入函數)
   - [React中优雅的处理doubleClick](#react中优雅的处理doubleclick)
 
-# TODO
-
-- SVG arrows on Drag (see useDrawConnectorDynamic)
-  - 利用閉包來做 Memoizer
-- ⭕ update vertex name (double click)
-  - 利用 vertex name / value 資料結構 - 僅顯示端顯示沒問題
-  - 處理 click / double click 兩者，利用可取消的 Promise
-- ⭕ delete vertex (maybe hover over trash can icon) -- instance of class 造成 uncontorlled component 
-  - 封裝在 dagContext 內，並新增 update state 通知 React dag 內部已經修改
-- ⭕ bar select different arrows style
 
 
 # 👉 About dark/light theme w/ Styled Component
